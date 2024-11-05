@@ -33,7 +33,7 @@ function onRemoveBook(ev, bookId) {
     renderBooks()
 }
 
-function onRemoveBook(ev, bookId) {
+function onUpdateBook(ev, bookId) {
     ev.stopPropagation()
 
     // Model
@@ -43,12 +43,10 @@ function onRemoveBook(ev, bookId) {
     renderBooks()
 }
 
-function onUpdateBook(ev, bookId) {
-    ev.stopPropagation()
-
+function onAddBook() {
     // Model
-    updateBook(bookId)
-    
+    addBook()
+
     //DOM
     renderBooks()
 }
