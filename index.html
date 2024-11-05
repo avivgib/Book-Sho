@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Shop</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body onload="onInit()">
+    <h1>Book Shop</h1>
+    <section class="books-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Harry Potter and the Cursed Child</th>
+            <th>88</th>
+            <th><img src="img/harry-potter-and-the-cursed-child.jpg" /></th>
+            <th class="actions">
+              <button class="read">Read</button>
+              <button class="update">Update</button>
+              <button class="delete">Delete</button>
+            </th>
+          </tr>
+          <tr>
+            <th>The Son of Neptune</th>
+            <th>60</th>
+            <th><img src="img/the-son-of-neptune.jpg" /></th>
+            <th class="actions">
+              <button class="read">Read</button>
+              <button class="update">Update</button>
+              <button class="delete">Delete</button>
+            </th>
+          </tr>
+          <tr>
+            <th>No Strangers Here</th>
+            <th>64</th>
+            <th><img src="img/no-strangers-here.jpg" /></th>
+            <th class="actions">
+              <button class="read">Read</button>
+              <button class="update">Update</button>
+              <button class="delete">Delete</button>
+            </th>
+          </tr>
+          <tr>
+            <th>The Five</th>
+            <th>75</th>
+            <th><img src="img/the-five.jpg" /></th>
+            <th class="actions">
+              <button class="read">Read</button>
+              <button class="update">Update</button>
+              <button class="delete">Delete</button>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <script src="js/book.service.js"></script>
+    <script src="js/book.controller.js"></script>
+  </body>
+</html>
