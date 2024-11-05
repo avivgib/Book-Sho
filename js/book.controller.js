@@ -15,10 +15,20 @@ function renderBooks() {
                 <th class="actions">
                     <button class="read">Read</button> 
                     <button class="update">Update</button> 
-                    <button class="delete">Delete</button> 
+                    <button class="delete" onclick="onRemoveBook(event, '${book.id}')">Delete</button> 
                 </th>
             </tr>`
     )
 
     elBooks.innerHTML = strHTMLs.join('')
+}
+
+function onRemoveBook(ev, bookId) {
+    ev.stopPropagation()
+
+    // Model
+    removeBook(bookId)
+    
+    //DOM
+    renderBooks()
 }
