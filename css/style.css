@@ -29,13 +29,10 @@ img {
     max-width: 100px;
 }
 
-button{
+.read, .update, .delete{
     padding: .5em 1em;
     border-radius: .7em;
     cursor: pointer;
-}
-button:hover {
-    background-color: rgba(34, 178, 53, 0.523);
 }
 
 .read {
@@ -46,4 +43,44 @@ button:hover {
 }
 .delete {
     background-color: rgb(255, 166, 0);
+}
+.read:hover, .update:hover, .delete:hover {
+    background-color: rgba(34, 178, 53, 0.523);
+}
+
+.backdrop {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    
+    background-color: #b1b1b199;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease-in;
+    z-index: 0;
+}
+
+.modal {
+    display: flex;
+    position: fixed;
+    top: 20vh;
+    padding: 1em;    
+    background-color: #fcfcfc;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px #adadad;
+}
+.modal .close-btn{
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    border: 2px solid rgb(128, 120, 120);
+    box-shadow: 3px 3px 6px;
+}
+
+.modal pre {
+    white-space: pre-wrap;
 }

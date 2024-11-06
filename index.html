@@ -19,12 +19,21 @@
           <tr>
             <th>Title</th>
             <th>Price</th>
-            <th>Image</th>
+            <th>Book Cover</th>
             <th>Actions</th>
           </tr>
         </thead>
 
         <tbody></tbody>
+        
+        <div onclick="handleCloseModal(event)" class="backdrop">
+          <section class="modal book-details-modal">
+            <button onclick="handleCloseModal(event)" class="close-btn">x</button>
+            <div class="details-container">
+            </div>
+          </section>
+        </div>
+
       </table>
     </section>
 

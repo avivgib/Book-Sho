@@ -13,7 +13,7 @@ function renderBooks() {
                 <th>${book.price}</th>
                 <th><img src="img/${book.imgUrl}" alt="${book.title} cover"></th>
                 <th class="actions">
-                    <button class="read">Read</button> 
+                    <button class="read" onclick="handleOpenModal(event, '${book.id}')">Read</button> 
                     <button class="update" onclick="onUpdateBook(event, '${book.id}')">Update</button> 
                     <button class="delete" onclick="onRemoveBook(event, '${book.id}')">Delete</button> 
                 </th>
@@ -23,14 +23,36 @@ function renderBooks() {
     elBooks.innerHTML = strHTMLs.join('')
 }
 
-function onRemoveBook(ev, bookId) {
+function handleOpenModal(ev, bookId) {
     ev.stopPropagation()
 
-    // Model
-    removeBook(bookId)
-    
-    //DOM
-    renderBooks()
+    // DOM
+    const elBackDrop = document.querySelector('.backdrop')
+    elBackDrop.style.opacity = '1'
+    elBackDrop.style.pointerEvents = 'auto'
+
+    const elDetails = document.querySelector('.details-container')
+    const book = findBook(bookId)
+    const strHTML = renderBookDetailsModal(book)
+    elDetails.innerHTML = strHTML
+}
+
+function renderBookDetailsModal(book) {
+    const stringJson = JSON.stringify(book,null,2)
+    return `<pre>
+                ${stringJson}
+            </pre>`
+}
+
+function handleCloseModal(ev) {
+    ev.stopPropagation()
+
+    const targetClass = ev.target.classList
+    if (targetClass.contains('backdrop') || targetClass.contains('close-btn')) {
+        const elBackDrop = document.querySelector('.backdrop')
+        elBackDrop.style.opacity = '0'
+        elBackDrop.style.pointerEvents = 'none'
+    }
 }
 
 function onUpdateBook(ev, bookId) {
@@ -38,7 +60,17 @@ function onUpdateBook(ev, bookId) {
 
     // Model
     updateBook(bookId)
-    
+
+    //DOM
+    renderBooks()
+}
+
+function onRemoveBook(ev, bookId) {
+    ev.stopPropagation()
+
+    // Model
+    removeBook(bookId)
+
     //DOM
     renderBooks()
 }
