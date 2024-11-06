@@ -10,8 +10,7 @@ function renderBooks() {
     const strHTMLs = gBooks.map(book =>
         `<tr>
                 <th>${book.title}</th>
-                <th>${book.price}</th>
-                <th><img src="img/${book.imgUrl}" alt="${book.title} cover"></th>
+                <th>${book.price} ILS</th>
                 <th class="actions">
                     <button class="read" onclick="handleOpenModal(event, '${book.id}')">Read</button> 
                     <button class="update" onclick="onUpdateBook(event, '${book.id}')">Update</button> 
@@ -38,9 +37,16 @@ function handleOpenModal(ev, bookId) {
 }
 
 function renderBookDetailsModal(book) {
-    const stringJson = JSON.stringify(book,null,2)
     return `<pre>
-                ${stringJson}
+                <img class="book-cover" src="img/${book.imgUrl}" alt="${book.title} cover">
+                <div class="book-info">
+                    <article>Title: ${book.title}</article>
+                    <article>Price: ${book.price} ILS</article>
+                    <article>Author: ${book.author}</article>
+                    <article>Print Length: ${book.printLength} pages</article>
+                    <article>Publisher: ${book.publisher}</article>
+                    <article>publication Date: ${book.publicationDate}</article>
+                </div>
             </pre>`
 }
 
