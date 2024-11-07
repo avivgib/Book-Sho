@@ -1,9 +1,55 @@
 * {
     box-sizing: border-box;
+    scroll-behavior: smooth;
+    scroll-margin-block-start: 3rem;
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
     font-family: cursive;
+    overflow-y: hidden;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-block-start: 10px solid white;
+    margin-inline: auto;
+    margin-block-end: 3vh;
+    width: 95%;
+    height: 4rem;
+    border-radius: 10px;    
+}
+
+footer {
+    position: sticky;
+    bottom: 0px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    height: 3rem;
+    border-block-end: 10px solid white;
+    padding-inline: 1em;
+    margin-block-start: 3vh;
+
+    margin-inline: auto;
+    width: 100%;
+    border-radius: 10px;
+    z-index: 1;
+    font-size: 8px;
+}
+
+header, footer {
+    border: 1px solid rgb(108, 120, 133);
+    background-color: #463c3c4d ;
 }
 
 h1 {
@@ -11,17 +57,37 @@ h1 {
 }
 
 table {
-    margin-left: auto;
-    margin-right: auto;
+    width: 80%;
+    margin-inline: auto;
+    border-collapse: collapse;
+    font-size: 17px;
 }
 
-table {
-    border-collapse: collapse;
+.books-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 10rem);
+    overflow-y: auto;
+    margin: 1vh 0;
 }
+
+.add-book{
+    right: auto;
+    margin-inline-start: 10%;
+    margin-block-end: 10px;
+}
+
+.books-container thead {
+    border: 1px solid gray;
+    background-color: lightblue;
+}
+
 table, th, tr{
     border: 1px, solid;
 }
-th, tr {
+
+th {
     padding: .5em 1em;
 }
 
@@ -89,14 +155,12 @@ img {
     white-space: pre-wrap; 
     word-break: break-word; 
     max-height: 100%; 
-    overflow-y: auto; 
 }
 
 .details-container pre {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    overflow: auto;
 }
 
 .book-info {
@@ -104,7 +168,6 @@ img {
     display: flex;
     flex-direction: column;
     gap: 1vh;
-    overflow-y: auto;
     min-width: 0;
 }
 
