@@ -1,8 +1,9 @@
 'use strict'
 
+const STORAGE_KEY = 'books'
 const gBooks = [
     { 
-        id: 'b104', 
+        id: makeId(), 
         title: 'Harry Potter and the Cursed Child', 
         price: 88, 
         imgUrl: 'harry-potter-and-the-cursed-child.jpg', 
@@ -12,7 +13,7 @@ const gBooks = [
         publicationDate: 'July 25, 2017'
     },
     { 
-        id: 'b103', 
+        id: makeId(), 
         title: 'The Son of Neptune', 
         price: 60, 
         imgUrl: 'the-son-of-neptune.jpg', 
@@ -22,7 +23,7 @@ const gBooks = [
         publicationDate: 'October 4, 2011'
     },
     { 
-        id: 'b102', 
+        id: makeId(), 
         title: 'No Strangers Here', 
         price: 64, 
         imgUrl: 'no-strangers-here.jpg', 
@@ -32,7 +33,7 @@ const gBooks = [
         publicationDate: 'August 29, 2023'
     },
     { 
-        id: 'b101', 
+        id: makeId(), 
         title: 'The Five', 
         price: 75, 
         imgUrl: 'the-five.jpg', 
@@ -53,7 +54,7 @@ function removeBook(bookId) {
 }
 
 function updateBook(bookId) {
-    const book = gBooks.find(book => book.id === bookId)
+    const book = findBook(bookId)
     const newPrice = +prompt('Book new price?', book.price)
     book.price = newPrice
 }
@@ -63,21 +64,14 @@ function addBook() {
     const bookPrice = +prompt('Price new book?')
     if (!bookTitle || !bookPrice) return
 
-    const maxId = gBooks.reduce((max, book) => {
-        const idNum = parseInt(book.id.slice(1))
-        return idNum > max ? idNum : max
-    }, 100)
-
-    const newBook = {
-        id: `b${maxId + 1}`,
-        title: bookTitle,
-        price: bookPrice
-    }
-    
+    const newBook = _createBook(bookTitle, bookPrice)
     gBooks.unshift(newBook)
 }
 
-function findBook(bookId) {
-    const book = gBooks.find(book => book.id === bookId)
-    return book
+function _createBook(bookTitle, bookPrice) {
+    return {
+        id: makeId(),
+        title: bookTitle,
+        price: bookPrice
+    }
 }
