@@ -12,9 +12,9 @@ function renderBooks() {
                 <th>${book.title}</th>
                 <th>${book.price} ILS</th>
                 <th class="actions">
-                    <button class="read" onclick="handleOpenModal(event, '${book.id}')">Read</button> 
-                    <button class="update" onclick="onUpdateBook(event, '${book.id}')">Update</button> 
-                    <button class="delete" onclick="onRemoveBook(event, '${book.id}')">Delete</button> 
+                    <button class="read-btn" onclick="handleOpenModal(event, '${book.id}')">Read</button> 
+                    <button class="update-btn" onclick="onUpdateBook(event, '${book.id}')">Update</button> 
+                    <button class="delete-btn" onclick="onRemoveBook(event, '${book.id}')">Delete</button> 
                 </th>
             </tr>`
     )
@@ -73,10 +73,10 @@ function onUpdateBook(ev, bookId) {
 
 function onRemoveBook(ev, bookId) {
     ev.stopPropagation()
-
+    
     // Model
     removeBook(bookId)
-
+    
     //DOM
     renderBooks()
 }
@@ -84,7 +84,28 @@ function onRemoveBook(ev, bookId) {
 function onAddBook() {
     // Model
     addBook()
+    
+    //DOM
+    renderBooks()
+}
 
+function onFilterByName(ev) {
+    ev.stopPropagation()
+
+    var txt = document.querySelector('.input-filter').value.toLowerCase()
+    // Model
+    filterByName(txt) 
+
+    //DOM
+    renderBooks()
+}
+
+function onClearFilter(ev) {
+    ev.stopPropagation()
+    
+    document.querySelector('.input-filter').value = ''
+    gBooks = loadFromStorage(STORAGE_KEY)
+    
     //DOM
     renderBooks()
 }

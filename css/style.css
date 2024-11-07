@@ -34,7 +34,8 @@ footer {
     font-size: 8px;
 }
 
-header, footer {
+header, 
+footer {
     position: sticky;
     z-index: 1;
     display: flex;
@@ -63,13 +64,27 @@ table {
     margin: 1vh 0;
 }
 
-.add-book{
+.features-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-inline-start: 10px;
+}
+
+.filter-container {
+    left: auto;
+    margin-inline-end: 10%;
+    margin-block-end: 10px;
+}
+
+.add-book-btn{
     right: auto;
     margin-inline-start: 10%;
     margin-block-end: 10px;
 }
 
-.books-container thead {
+.books-container 
+thead {
     border: 1px solid gray;
     background-color: lightblue;
 }
@@ -86,25 +101,36 @@ img {
     max-width: 100px;
 }
 
-.add-book, .read, .update, .delete{
+.add-book-btn, 
+.read-btn, 
+.update-btn, 
+.delete-btn, 
+.clear-btn, 
+.input-filter {
     padding: .5em 1em;
     border-radius: .7em;
     cursor: pointer;
 }
 
-.read {
+.input-filter {
+    cursor: text;
+}
+
+.read-btn {
     background-color: rgb(123, 197, 240);
 }
 
-.update {
+.update-btn {
     background-color: rgb(255, 236, 0);
 }
 
-.delete {
+.delete-btn {
     background-color: rgb(255, 166, 0);
 }
 
-.read:hover, .update:hover, .delete:hover {
+.read-btn:hover, 
+.update-btn:hover, 
+.delete-btn:hover {
     background-color: rgba(34, 178, 53, 0.523);
 }
 
@@ -134,7 +160,8 @@ img {
     border-radius: 10px;
     box-shadow: 3px 3px 3px #adadad;
 }
-.modal .close-btn{
+.modal 
+.close-btn{
     position: absolute;
     top: -8px;
     right: -8px;
@@ -145,13 +172,11 @@ img {
     box-shadow: 3px 3px 6px;
 }
 
-.modal pre {
+.modal 
+pre {
     white-space: pre-wrap; 
     word-break: break-word; 
     max-height: 100%; 
-}
-
-.details-container pre {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;

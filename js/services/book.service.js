@@ -63,7 +63,12 @@ function _createBooks() {
     }
 }
 
-
 function _saveBooks() {
     saveToStorage(STORAGE_KEY, gBooks)
 }
+
+function filterByName(txt) {
+    gBooks = txt === '' ? loadFromStorage(STORAGE_KEY)
+                        : gBooks.filter(book => book.title.toLowerCase().startsWith(txt))
+}
+

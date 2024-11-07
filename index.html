@@ -14,8 +14,14 @@
     </header>
 
     <section class="books-container">
-      <section>
-        <button class="add-book" onclick="onAddBook()">Add Book</button>
+      <section class="features-container">
+        <button class="add-book-btn" onclick="onAddBook()">Add Book</button>
+
+        <div class="filter-container">
+          <input class="input-filter" oninput="onFilterByName(event)" placeholder="Search by book title..."></input>
+          <button class="clear-btn" onclick="onClearFilter(event)">Clear</button>
+        </div>
+
       </section>
       <table>
         <thead>
