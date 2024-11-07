@@ -13,47 +13,38 @@ body {
 }
 
 header {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    top: 10px;
     border-block-start: 10px solid white;
-    margin-inline: auto;
     margin-block-end: 3vh;
     width: 95%;
     height: 4rem;
-    border-radius: 10px;    
-}
-
-footer {
-    position: sticky;
-    bottom: 0px;
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;    
-    height: 3rem;
-    border-block-end: 10px solid white;
-    padding-inline: 1em;
-    margin-block-start: 3vh;
-
-    margin-inline: auto;
-    width: 100%;
-    border-radius: 10px;
-    z-index: 1;
-    font-size: 8px;
-}
-
-header, footer {
-    border: 1px solid rgb(108, 120, 133);
-    background-color: #463c3c4d ;
 }
 
 h1 {
     text-align: center;
+}
+
+footer {
+    bottom: 10px;
+    height: 3rem;
+    border-block-end: 10px solid white;
+    padding-inline: 1em;
+    margin-block-start: 3vh;
+    width: 100%;
+    font-size: 8px;
+}
+
+header, footer {
+    position: sticky;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+    margin-inline: auto;
+    border-radius: 10px;
+    
+    border: 1px solid rgb(108, 120, 133);
+    background-color: #463c3c4d ;
 }
 
 table {
@@ -104,12 +95,15 @@ img {
 .read {
     background-color: rgb(123, 197, 240);
 }
+
 .update {
     background-color: rgb(255, 236, 0);
 }
+
 .delete {
     background-color: rgb(255, 166, 0);
 }
+
 .read:hover, .update:hover, .delete:hover {
     background-color: rgba(34, 178, 53, 0.523);
 }
