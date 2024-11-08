@@ -196,3 +196,23 @@ pre {
     margin-right: 2em;
 }
 
+.user-msg {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.user-msg.success {
+    color: #155724;
+    background-color: #c0ebca;
+}
+.user-msg.error {
+    color: #721c24;
+    background-color: #f4bcc0;
+}
+
+.hide {
+    display: none;
+}
