@@ -18,7 +18,8 @@
         <button class="add-book-btn" onclick="onAddBook()">Add Book</button>
 
         <div class="filter-container">
-          <input class="input-filter" oninput="onFilterByName(event)" placeholder="Search by book title..."></input>
+            <input oninput="onSetFilterBy(event, this)" class="input-filter" type="text" 
+                placeholder="Enter book title..." name="by-title" />
           <button class="clear-btn" onclick="onClearFilter(event)">Clear</button>
         </div>
 

@@ -1,13 +1,21 @@
 'use strict'
 
+const LAYOUT_KEY = 'layuot_db'
+var gLayout = loadFromStorage(LAYOUT_KEY) || 'table'
+
 function onInit() {
     renderBooks()
 }
 
 function renderBooks() {
-    const elBooks = document.querySelector('.books-container tbody')
+    const books = getBooks()
+    renderBooksTable(books)
+}
 
-    const strHTMLs = gBooks.map(book =>
+function renderBooksTable(books) {
+    const elBooks = document.querySelector('.books-container tbody')
+    
+    const strHTMLs = books.map(book =>
         `<tr>
                 <th>${book.title}</th>
                 <th>${book.price} ILS</th>
@@ -18,7 +26,7 @@ function renderBooks() {
                 </th>
             </tr>`
     )
-
+    
     elBooks.innerHTML = strHTMLs.join('')
 }
 
@@ -63,9 +71,11 @@ function handleCloseModal(ev) {
 
 function onUpdateBook(ev, bookId) {
     ev.stopPropagation()
+    const newPrice = +prompt('Enter a new price', book.price)
+    if (!newPrice) return
 
     // Model
-    updateBook(bookId)
+    updateBook(bookId, newPrice)
 
     //DOM
     renderBooks()
@@ -73,6 +83,8 @@ function onUpdateBook(ev, bookId) {
 
 function onRemoveBook(ev, bookId) {
     ev.stopPropagation()
+    const isApprovedRemoving = confirm('Are you sure you want to remove this book?')
+    if (!isApprovedRemoving) return
     
     // Model
     removeBook(bookId)
@@ -82,19 +94,23 @@ function onRemoveBook(ev, bookId) {
 }
 
 function onAddBook() {
+    const bookTitle = prompt('Book title')
+    const bookPrice = +prompt('Book price')
+    if (!bookTitle || !bookPrice) return
+
     // Model
-    addBook()
+    addBook(bookTitle, bookPrice)
     
     //DOM
     renderBooks()
 }
 
-function onFilterByName(ev) {
+function onSetFilterBy(ev, elInput) {
     ev.stopPropagation()
 
-    var txt = document.querySelector('.input-filter').value.toLowerCase()
     // Model
-    filterByName(txt) 
+    var filterBy = elInput.value
+    setFilterBy(filterBy) 
 
     //DOM
     renderBooks()

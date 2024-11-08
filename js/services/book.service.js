@@ -1,35 +1,38 @@
 'use strict'
 
 const STORAGE_KEY = 'books'
+var gFilterBy = ''
 
 var gBooks = []
 _createBooks()
 
 function getBooks() {
-    return gBooks
+    var books = gBooks
+
+    if (gFilterBy) {
+        books = books.filter((book) =>
+            book.title.toLowerCase().startsWith(gFilterBy.toLowerCase())
+        )
+    }
+    return books
 }
 
 function removeBook(bookId) {
     const bookIdx = gBooks.findIndex(book => book.id === bookId)
-    gBooks.splice(bookIdx, 1)
+    if (bookIdx !== -1) gBooks.splice(bookIdx, 1)
 
     _saveBooks()
 }
 
-function updateBook(bookId) {
+function updateBook(bookId, newPrice) {
     const book = findBook(bookId)
-    const newPrice = +prompt('Book new price?', book.price)
     book.price = newPrice
 
     _saveBooks()
 }
 
-function addBook() {
-    const bookTitle = prompt('Title new book?')
-    const bookPrice = +prompt('Price new book?')
-    if (!bookTitle || !bookPrice) return
-
-    const newBook = _createBook(bookTitle, bookPrice)
+function addBook(title, price) {
+    const newBook = _createBook(title, price)
     gBooks.unshift(newBook)
 
     _saveBooks()
@@ -50,7 +53,7 @@ function _createBooks() {
     _saveBooks()
 }
 
-    function _createBook(title, price, imgUrl, author, printLength, publisher, publicationDate) {
+function _createBook(title, price, imgUrl, author, printLength, publisher, publicationDate) {
     return {
         id: makeId(),
         title,
@@ -58,7 +61,7 @@ function _createBooks() {
         imgUrl,
         author,
         printLength,
-        publisher, 
+        publisher,
         publicationDate
     }
 }
@@ -67,8 +70,7 @@ function _saveBooks() {
     saveToStorage(STORAGE_KEY, gBooks)
 }
 
-function filterByName(txt) {
-    gBooks = txt === '' ? loadFromStorage(STORAGE_KEY)
-                        : gBooks.filter(book => book.title.toLowerCase().startsWith(txt))
+function setFilterBy(filterBy) {
+    gFilterBy = filterBy
 }
 
