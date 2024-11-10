@@ -18,7 +18,7 @@ function renderBooksTable(books) {
     const strHTMLs = books.map(book =>
         `<tr>
                 <th>${book.title}</th>
-                <th>${book.price} ILS</th>
+                <th>$${book.price}</th>
                 <th class="actions">
                     <button class="read-btn" onclick="handleOpenModal(event, '${book.id}')">Read</button> 
                     <button class="update-btn" onclick="onUpdateBook(event, '${book.id}')">Update</button> 
@@ -71,8 +71,11 @@ function handleCloseModal(ev) {
 
 function onUpdateBook(ev, bookId) {
     ev.stopPropagation()
-    const newPrice = +prompt('Enter a new price', book.price)
-    if (!newPrice) return
+    const newPrice = +prompt('Enter a new price', bookId.price)
+    if (!newPrice) {
+        showErrorMsg('update')
+        return
+    }
 
     // Model
     updateBook(bookId, newPrice)
@@ -84,7 +87,10 @@ function onUpdateBook(ev, bookId) {
 function onRemoveBook(ev, bookId) {
     ev.stopPropagation()
     const isApprovedRemoving = confirm('Are you sure you want to remove this book?')
-    if (!isApprovedRemoving) return
+    if (!isApprovedRemoving) {
+        showErrorMsg('remove')
+        return
+    }
     
     // Model
     removeBook(bookId)
@@ -96,7 +102,10 @@ function onRemoveBook(ev, bookId) {
 function onAddBook() {
     const bookTitle = prompt('Book title')
     const bookPrice = +prompt('Book price')
-    if (!bookTitle || !bookPrice) return
+    if (!bookTitle || !bookPrice) {
+        showErrorMsg('add')
+        return
+    }
 
     // Model
     addBook(bookTitle, bookPrice)
@@ -124,4 +133,28 @@ function onClearFilter(ev) {
     
     //DOM
     renderBooks()
+}
+
+function showSuccessMsg(txt) {
+    const elUserMsg = document.querySelector('.user-msg')
+    elUserMsg.classList.add('success')
+    elUserMsg.innerHTML = `Successfully ${txt} book.`
+    elUserMsg.classList.remove('hide')
+    
+    setTimeout(() => {
+        elUserMsg.classList.add('hide')
+        elUserMsg.classList.remove('success')
+    }, 3000);
+}
+
+function showErrorMsg(txt) {
+    const elUserMsg = document.querySelector('.user-msg')
+    elUserMsg.classList.add('error')
+    elUserMsg.innerHTML = `Failed to ${txt} book.`
+    elUserMsg.classList.remove('hide')
+    
+    setTimeout(() => {
+        elUserMsg.classList.add('hide')
+        elUserMsg.classList.remove('error')
+    }, 3000);
 }

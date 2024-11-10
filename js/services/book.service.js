@@ -22,13 +22,16 @@ function removeBook(bookId) {
     if (bookIdx !== -1) gBooks.splice(bookIdx, 1)
 
     _saveBooks()
+    showSuccessMsg('removed')
 }
 
 function updateBook(bookId, newPrice) {
     const book = findBook(bookId)
-    book.price = newPrice
+    book.price = padPrice(newPrice)
 
     _saveBooks()
+    showSuccessMsg('updated')
+
 }
 
 function addBook(title, price) {
@@ -36,6 +39,7 @@ function addBook(title, price) {
     gBooks.unshift(newBook)
 
     _saveBooks()
+    showSuccessMsg('added')
 }
 
 
@@ -44,10 +48,10 @@ function _createBooks() {
     if (gBooks && gBooks.length > 0) return
 
     gBooks = [
-        _createBook('Harry Potter and the Cursed Child', 88, 'harry-potter-and-the-cursed-child.jpg', 'J.K. Rowling', 398, 'Pottermore Publishing', 'July 25, 2017'),
-        _createBook('The Son of Neptune', 60, 'the-son-of-neptune.jpg', 'Rick Riordan', 546, 'Disney Hyperion', 'October 4, 2011'),
-        _createBook('No Strangers Here', 64, 'no-strangers-here.jpg', 'Carlene O\'Connor', 400, 'Kensington', 'August 29, 2023'),
-        _createBook('The Five', 75, 'the-five.jpg', 'Hallie Rubenhold', 368, 'Mariner Books', 'March 3, 2020')
+        _createBook('Harry Potter and the Cursed Child', 140.5, 'harry-potter-and-the-cursed-child.jpg', 'J.K. Rowling', 398, 'Pottermore Publishing', 'July 25, 2017'),
+        _createBook('The Son of Neptune', 60.4, 'the-son-of-neptune.jpg', 'Rick Riordan', 546, 'Disney Hyperion', 'October 4, 2011'),
+        _createBook('No Strangers Here', 64.32, 'no-strangers-here.jpg', 'Carlene O\'Connor', 400, 'Kensington', 'August 29, 2023'),
+        _createBook('The Five', 175, 'the-five.jpg', 'Hallie Rubenhold', 368, 'Mariner Books', 'March 3, 2020')
     ]
 
     _saveBooks()
@@ -57,13 +61,17 @@ function _createBook(title, price, imgUrl, author, printLength, publisher, publi
     return {
         id: makeId(),
         title,
-        price,
+        price: padPrice(price),
         imgUrl,
         author,
         printLength,
         publisher,
         publicationDate
     }
+}
+
+function padPrice(price) {
+    return price.toFixed(2)
 }
 
 function _saveBooks() {
