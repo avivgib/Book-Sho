@@ -88,12 +88,12 @@ table {
 .books-container 
 thead {
     border: 1px solid gray;
-    background-color: lightblue;
+    background-color: lightgray;
 }
 
 .books-container 
 tbody {
-    background-color: #fff;
+    background-color: beige;
 }
 
 table, th, tr{
@@ -269,7 +269,7 @@ pre {
 }
 
 .book-preview {
-    background-color: white;
+    background-color: beige;
     color: black;
     width: 300px;
     margin: .5em;
