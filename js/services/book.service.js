@@ -1,6 +1,6 @@
 'use strict'
 
-const STORAGE_KEY = 'books'
+const STORAGE_KEY = 'books_db'
 var gFilterBy = ''
 
 var gBooks = []
@@ -50,8 +50,8 @@ function _createBooks() {
     gBooks = [
         _createBook('Harry Potter and the Cursed Child', 140.5, 'harry-potter-and-the-cursed-child.jpg', 'J.K. Rowling', 398, 'Pottermore Publishing', 'July 25, 2017'),
         _createBook('The Son of Neptune', 60.4, 'the-son-of-neptune.jpg', 'Rick Riordan', 546, 'Disney Hyperion', 'October 4, 2011'),
-        _createBook('No Strangers Here', 64.32, 'no-strangers-here.jpg', 'Carlene O\'Connor', 400, 'Kensington', 'August 29, 2023'),
-        _createBook('The Five', 175, 'the-five.jpg', 'Hallie Rubenhold', 368, 'Mariner Books', 'March 3, 2020')
+        _createBook('No Strangers Here', 64.90, 'no-strangers-here.jpg', 'Carlene O\'Connor', 400, 'Kensington', 'August 29, 2023'),
+        _createBook('The Five', 101.9, 'the-five.jpg', 'Hallie Rubenhold', 368, 'Mariner Books', 'March 3, 2020')
     ]
 
     _saveBooks()

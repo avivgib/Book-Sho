@@ -183,8 +183,9 @@ function onClearFilter(ev) {
 
     document.querySelector('.input-filter').value = ''
     gBooks = loadFromStorage(STORAGE_KEY)
-
+    
     //DOM
+    setFilterBy('')
     renderBooks()
     renderStatistics()
 }
