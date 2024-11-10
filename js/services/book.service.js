@@ -64,7 +64,7 @@ function _createBook(title, price, imgUrl, author, printLength, publisher, publi
         price: padPrice(price),
         imgUrl: imgUrl || '',
         author: author || '',
-        printLength: printLength || '',
+        printLength: printLength ? `${printLength} pages` : '',
         publisher: publisher || '',
         publicationDate: publicationDate || ''
     }

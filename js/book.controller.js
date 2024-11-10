@@ -31,7 +31,7 @@ function renderBooksTable(books) {
                 <th>${book.title}</th>
                 <th>$${book.price}</th>
                     <th class="actions">
-                    <button class="read-btn" onclick="handleOpenModal(event, '${book.id}')">Read</button> 
+                    <button class="show-details-btn" onclick="handleOpenModal(event, '${book.id}')">Details</button> 
                     <button class="update-btn" onclick="onUpdateBook(event, '${book.id}')">Update</button> 
                 <button class="delete-btn" onclick="onRemoveBook(event, '${book.id}')">Delete</button> 
                 </th>
@@ -59,7 +59,7 @@ function renderBooksCards(books) {
                 <button class="close-btn" onclick="onRemoveBook(event, '${book.id}')">x</button>
                 <h5>${book.title}</h5>
                 <h6>Price: <span>$${book.price}</span> </h6>
-                <button class="read-btn" onclick="handleOpenModal(event, '${book.id}')">Details</button>
+                <button class="show-details-btn" onclick="handleOpenModal(event, '${book.id}')">Details</button>
                 <button class="update-btn" onclick="onUpdateBook(event, '${book.id}')">Update</button>
                 <img src="img/${book.imgUrl}">
             </div>
@@ -91,7 +91,7 @@ function renderBookDetailsModal(book) {
                     <article>Title: ${book.title}</article>
                     <article>Price: $${book.price}</article>
                     <article>Author: ${book.author}</article>
-                    <article>Print Length: ${book.printLength} pages</article>
+                    <article>Print Length: ${book.printLength}</article>
                     <article>Publisher: ${book.publisher}</article>
                     <article>publication Date: ${book.publicationDate}</article>
                 </div>

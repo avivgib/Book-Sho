@@ -109,7 +109,7 @@ img {
 }
 
 .add-book-btn, 
-.read-btn, 
+.show-details-btn, 
 .update-btn, 
 .delete-btn, 
 .clear-btn, 
@@ -124,7 +124,7 @@ img {
     cursor: text;
 }
 
-.read-btn {
+.show-details-btn {
     background-color: sienna;
 }
 
@@ -136,7 +136,7 @@ img {
     background-color: coral;
 }
 
-.read-btn:hover, 
+.show-details-btn:hover, 
 .update-btn:hover, 
 .delete-btn:hover {
     background-color: burlywood ;
