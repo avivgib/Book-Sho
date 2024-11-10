@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Shop</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material" />
   </head>
 
   <body onload="onInit()">
@@ -15,6 +17,14 @@
     <section class="books-container">
       <section class="features-container">
         <button class="add-book-btn" onclick="onAddBook()">Add Book</button>
+        <div class="icon-container">
+          <button class="btn-table" onclick="onChangeLayout('table')">
+            <span class="material-icons icon">format_list_bulleted</span>
+          </button>
+          <button class="btn-cards" onclick="onChangeLayout('cards')">
+            <span class="material-icons icon" onclick="">grid_view</span>
+          </button>
+        </div>
 
         <div class="filter-container">
           <input
@@ -29,7 +39,7 @@
           </button>
         </div>
       </section>
-      <table>
+      <table class="table-container">
         <thead>
           <tr>
             <th>Title</th>
@@ -49,6 +59,8 @@
           </section>
         </div>
       </table>
+
+      <div class="cards-container"></div>
     </section>
 
     <div class="user-msg hide"></div>

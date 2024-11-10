@@ -17,7 +17,7 @@ body {
 header {
     top: 10px;
     border-block-start: 10px solid white;
-    margin-block-end: 3vh;
+    margin-block-end: 4vh;
     width: 95%;
     height: 4rem;
 }
@@ -114,9 +114,10 @@ img {
 .delete-btn, 
 .clear-btn, 
 .input-filter {
-    padding: .5em 1em;
+    padding: .5em 2em;
     border-radius: .7em;
     cursor: pointer;
+    margin-block-end: 0.2em;
 }
 
 .input-filter {
@@ -232,6 +233,89 @@ pre {
     font-size: 2.5em;
 }
 
-/* .statistic-container span {
+.on-books-message {
+    height: 20vh;
+    font-size: 3vh;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.icon-container {
+    display: flex;
+    align-self: center;
+    right: auto;
+    margin-inline-start: 10%;
+    margin-block-end: 10px;
+}
+
+.btn-table, .btn-cards{
+    display: flex;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10px 0px;
+    gap: 30px;
+    min-width: 790px;
+}
+
+.book-preview {
+    background-color: white;
     color: black;
-} */
+    width: 300px;
+    margin: .5em;
+    border: 1px solid lightgray;
+    border-radius: .2em;
+    text-align: center;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.book-preview .btn-remove {
+    float: right;
+}
+
+.book-preview img {
+    max-width: 100%;
+    height: 400px;
+}
+
+.book-preview h5 {
+    font-size: 1em;
+    text-transform: capitalize;
+    text-decoration: overline;
+    margin: 0.5em 0px;
+}
+
+.book-preview h6 {
+    font-size: 1em;
+}
+
+.book-preview h6 span {
+    color: tomato;
+}
+
+.book-preview .close-btn {
+    align-self: flex-end;
+}
+
+.book-preview.close-btn{
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    border: 2px solid rgb(128, 120, 120);
+    box-shadow: 3px 3px 6px;
+}

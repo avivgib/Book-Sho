@@ -36,7 +36,7 @@ function updateBook(bookId, newPrice) {
 
 function addBook(title, price) {
     const newBook = _createBook(title, price)
-    gBooks.unshift(newBook)
+    gBooks.push(newBook)
 
     _saveBooks()
     showSuccessMsg('added')
@@ -62,11 +62,11 @@ function _createBook(title, price, imgUrl, author, printLength, publisher, publi
         id: makeId(),
         title,
         price: padPrice(price),
-        imgUrl,
-        author,
-        printLength,
-        publisher,
-        publicationDate
+        imgUrl: imgUrl || '',
+        author: author || '',
+        printLength: printLength || '',
+        publisher: publisher || '',
+        publicationDate: publicationDate || ''
     }
 }
 

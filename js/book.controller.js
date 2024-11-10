@@ -1,33 +1,72 @@
 'use strict'
 
-const LAYOUT_KEY = 'layuot_db'
+const LAYOUT_KEY = 'layuot'
 var gLayout = loadFromStorage(LAYOUT_KEY) || 'table'
 
 function onInit() {
     renderBooks()
-    renderStatistics()
 }
 
 function renderBooks() {
     const books = getBooks()
-    renderBooksTable(books)
+    if (gLayout === 'table') renderBooksTable(books)
+    else renderBooksCards(books)
+    renderStatistics()
 }
 
 function renderBooksTable(books) {
     const elBooks = document.querySelector('.books-container tbody')
-    
+    if (!elBooks) return
+
+    if (!books.length) {
+        elBooks.innerHTML = `
+            <tr>
+                <th colspan="3" class="on-books-message">No matching books were found...</th>
+            </tr>`
+        return
+    }
+
     const strHTMLs = books.map(book =>
         `<tr>
                 <th>${book.title}</th>
                 <th>$${book.price}</th>
-                <th class="actions">
+                    <th class="actions">
                     <button class="read-btn" onclick="handleOpenModal(event, '${book.id}')">Read</button> 
                     <button class="update-btn" onclick="onUpdateBook(event, '${book.id}')">Update</button> 
-                    <button class="delete-btn" onclick="onRemoveBook(event, '${book.id}')">Delete</button> 
+                <button class="delete-btn" onclick="onRemoveBook(event, '${book.id}')">Delete</button> 
                 </th>
-            </tr>`
+        </tr>`
     )
-    
+
+
+    document.querySelector('.cards-container').innerHTML = ''
+    hideElemet('.cards-container')
+    showElemet('.table-container')
+    elBooks.innerHTML = strHTMLs.join('')
+}
+
+function renderBooksCards(books) {
+    const elBooks = document.querySelector('.cards-container')
+    if (!elBooks) return
+
+    if (!books.length) {
+        elBooks.innerHTML = `<div class="book-card">No matching books were found...</div>`
+        return
+    }
+
+    const strHTMLs = books.map(book =>
+            `<div class="book-preview">
+                <button class="close-btn" onclick="onRemoveBook(event, '${book.id}')">x</button>
+                <h5>${book.title}</h5>
+                <h6>Price: <span>$${book.price}</span> </h6>
+                <button class="read-btn" onclick="handleOpenModal(event, '${book.id}')">Details</button>
+                <button class="update-btn" onclick="onUpdateBook(event, '${book.id}')">Update</button>
+                <img src="img/${book.imgUrl}">
+            </div>
+            `)
+
+    hideElemet('.table-container')
+    showElemet('.cards-container')
     elBooks.innerHTML = strHTMLs.join('')
 }
 
@@ -102,10 +141,10 @@ function onRemoveBook(ev, bookId) {
         showErrorMsg('remove')
         return
     }
-    
+
     // Model
     removeBook(bookId)
-    
+
     //DOM
     renderBooks()
     renderStatistics()
@@ -121,7 +160,7 @@ function onAddBook() {
 
     // Model
     addBook(bookTitle, bookPrice)
-    
+
     //DOM
     renderBooks()
     renderStatistics()
@@ -132,7 +171,7 @@ function onSetFilterBy(ev, elInput) {
 
     // Model
     var filterBy = elInput.value
-    setFilterBy(filterBy) 
+    setFilterBy(filterBy)
 
     //DOM
     renderBooks()
@@ -141,10 +180,10 @@ function onSetFilterBy(ev, elInput) {
 
 function onClearFilter(ev) {
     ev.stopPropagation()
-    
+
     document.querySelector('.input-filter').value = ''
     gBooks = loadFromStorage(STORAGE_KEY)
-    
+
     //DOM
     renderBooks()
     renderStatistics()
@@ -155,7 +194,7 @@ function showSuccessMsg(txt) {
     elUserMsg.classList.add('success')
     elUserMsg.innerHTML = `Successfully ${txt} book.`
     elUserMsg.classList.remove('hide')
-    
+
     setTimeout(() => {
         elUserMsg.classList.add('hide')
         elUserMsg.classList.remove('success')
@@ -167,9 +206,25 @@ function showErrorMsg(txt) {
     elUserMsg.classList.add('error')
     elUserMsg.innerHTML = `Failed to ${txt} book.`
     elUserMsg.classList.remove('hide')
-    
+
     setTimeout(() => {
         elUserMsg.classList.add('hide')
         elUserMsg.classList.remove('error')
     }, 3000);
 }
+
+function onChangeLayout(layout) {
+    gLayout = layout
+    saveToStorage(LAYOUT_KEY, gLayout)
+    renderBooks()
+}
+
+function showElemet(element) {
+    const elToShow = document.querySelector(element)
+    elToShow.classList.remove('hide')
+}
+
+function hideElemet(element) {
+    const elToHide = document.querySelector(element)
+    elToHide.classList.add('hide')
+} 
