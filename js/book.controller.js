@@ -9,8 +9,13 @@ function onInit() {
 
 function renderBooks() {
     const books = getBooks()
-    if (gLayout === 'table') renderBooksTable(books)
-    else renderBooksCards(books)
+    if (gLayout === 'table') {
+        // document.querySelector('.features-container').classList.add('table')
+        renderBooksTable(books)
+    } else { 
+        // document.querySelector('.features-container').classList.add('cards')
+        renderBooksCards(books) 
+    }
     renderStatistics()
 }
 
@@ -55,7 +60,7 @@ function renderBooksCards(books) {
     }
 
     const strHTMLs = books.map(book =>
-            `<div class="book-preview">
+        `<div class="book-preview">
                 <button class="close-btn" onclick="onRemoveBook(event, '${book.id}')">x</button>
                 <h5>${book.title}</h5>
                 <h6>Price: <span>$${book.price}</span> </h6>
@@ -183,7 +188,7 @@ function onClearFilter(ev) {
 
     document.querySelector('.input-filter').value = ''
     gBooks = loadFromStorage(STORAGE_KEY)
-    
+
     //DOM
     setFilterBy('')
     renderBooks()

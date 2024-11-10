@@ -51,7 +51,8 @@ footer {
 }
 
 table {
-    width: 80%;
+    width: 70%;
+    margin: .5em;
     margin-inline: auto;
     border-collapse: collapse;
     font-size: 17px;
@@ -69,7 +70,7 @@ table {
 .features-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-inline-start: 10px;
 }
 
@@ -256,15 +257,12 @@ pre {
     cursor: pointer;
 }
 
-
-
 .cards-container {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: center;
-    padding: 10px 0px;
-    gap: 30px;
+    gap: 20px;
     min-width: 790px;
 }
 
