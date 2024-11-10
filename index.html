@@ -8,7 +8,6 @@
   </head>
 
   <body onload="onInit()">
-
     <header>
       <h1>Book Shop</h1>
     </header>
@@ -18,11 +17,17 @@
         <button class="add-book-btn" onclick="onAddBook()">Add Book</button>
 
         <div class="filter-container">
-            <input oninput="onSetFilterBy(event, this)" class="input-filter" type="text" 
-                placeholder="Enter book title..." name="by-title" />
-          <button class="clear-btn" onclick="onClearFilter(event)">Clear</button>
+          <input
+            oninput="onSetFilterBy(event, this)"
+            class="input-filter"
+            type="text"
+            placeholder="Enter book title..."
+            name="by-title"
+          />
+          <button class="clear-btn" onclick="onClearFilter(event)">
+            Clear
+          </button>
         </div>
-
       </section>
       <table>
         <thead>
@@ -34,24 +39,29 @@
         </thead>
 
         <tbody></tbody>
-        
+
         <div onclick="handleCloseModal(event)" class="backdrop">
           <section class="modal book-details-modal">
-            <button onclick="handleCloseModal(event)" class="close-btn">x</button>
-            <div class="details-container">
-            </div>
+            <button onclick="handleCloseModal(event)" class="close-btn">
+              x
+            </button>
+            <div class="details-container"></div>
           </section>
         </div>
-
       </table>
     </section>
 
     <div class="user-msg hide"></div>
 
     <footer>
-      <h1>©️ G-BLI BOOKS</h1>
+      <!-- <h1>©️ G-BLI BOOKS</h1> -->
+      <h1 class="statistic-container">
+        <article class="expensive-count"><span></span> expensive books</article>
+        <article class="average-count"><span></span> average price books</article>
+        <article class="cheap-count"><span></span> cheap books</article>
+      </h1>
     </footer>
-    
+
     <!-- Model -->
     <script src="js/services/utils.service.js"></script>
     <script src="js/services/storage.service.js"></script>

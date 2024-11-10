@@ -82,3 +82,11 @@ function setFilterBy(filterBy) {
     gFilterBy = filterBy
 }
 
+function getBookStatistics() {
+    return gBooks.reduce((acc, book) => {
+        if (book.price > 120) acc.expensive++
+        else if (book.price < 80) acc.cheap++
+        else acc.average++
+        return acc
+    }, { cheap: 0, average: 0, expensive: 0 })
+}

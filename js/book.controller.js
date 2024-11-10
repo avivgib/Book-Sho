@@ -5,6 +5,7 @@ var gLayout = loadFromStorage(LAYOUT_KEY) || 'table'
 
 function onInit() {
     renderBooks()
+    renderStatistics()
 }
 
 function renderBooks() {
@@ -49,7 +50,7 @@ function renderBookDetailsModal(book) {
                 <img class="book-cover" src="img/${book.imgUrl}" alt="${book.title} cover">
                 <div class="book-info">
                     <article>Title: ${book.title}</article>
-                    <article>Price: ${book.price} ILS</article>
+                    <article>Price: $${book.price}</article>
                     <article>Author: ${book.author}</article>
                     <article>Print Length: ${book.printLength} pages</article>
                     <article>Publisher: ${book.publisher}</article>
@@ -69,6 +70,15 @@ function handleCloseModal(ev) {
     }
 }
 
+function renderStatistics() {
+    const bookStatistics = getBookStatistics()
+
+    document.querySelector('.cheap-count span').innerHTML = bookStatistics.cheap
+    document.querySelector('.average-count span').innerHTML = bookStatistics.average
+    document.querySelector('.expensive-count span').innerHTML = bookStatistics.expensive
+}
+
+
 function onUpdateBook(ev, bookId) {
     ev.stopPropagation()
     const newPrice = +prompt('Enter a new price', bookId.price)
@@ -82,6 +92,7 @@ function onUpdateBook(ev, bookId) {
 
     //DOM
     renderBooks()
+    renderStatistics()
 }
 
 function onRemoveBook(ev, bookId) {
@@ -97,6 +108,7 @@ function onRemoveBook(ev, bookId) {
     
     //DOM
     renderBooks()
+    renderStatistics()
 }
 
 function onAddBook() {
@@ -112,6 +124,7 @@ function onAddBook() {
     
     //DOM
     renderBooks()
+    renderStatistics()
 }
 
 function onSetFilterBy(ev, elInput) {
@@ -123,6 +136,7 @@ function onSetFilterBy(ev, elInput) {
 
     //DOM
     renderBooks()
+    renderStatistics()
 }
 
 function onClearFilter(ev) {
@@ -133,6 +147,7 @@ function onClearFilter(ev) {
     
     //DOM
     renderBooks()
+    renderStatistics()
 }
 
 function showSuccessMsg(txt) {
