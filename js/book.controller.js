@@ -301,4 +301,20 @@ function showElemet(element) {
 function hideElemet(element) {
     const elToHide = document.querySelector(element)
     elToHide.classList.add('hide')
-} 
+}
+
+function onSortByTitle(order) {
+    document.querySelector('.descending-title-sort').classList.toggle('hide')
+    document.querySelector('.ascending-title-sort').classList.toggle('hide')
+    
+    sortByTitle(order)
+    renderBooks()
+}
+
+function onSortByPrice(order) {
+    document.querySelector('.descending-price-sort').classList.toggle('hide')
+    document.querySelector('.ascending-price-sort').classList.toggle('hide')
+    
+    sortByPrice(order)
+    renderBooks()
+}

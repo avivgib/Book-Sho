@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
   </head>
 
   <body onload="onInit()">
@@ -52,8 +53,14 @@
       <table class="table-container">
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Price</th>
+            <th>Title
+              <button class="descending-title-sort hide" onclick="onSortByTitle('descending')">&#x2B9F;</button>
+              <button class="ascending-title-sort" onclick="onSortByTitle('ascending')">&#x2B9D;</button>
+            </th>
+            <th>Price
+              <button class="descending-price-sort hide" onclick="onSortByPrice('descending')">&#x2B9F;</button>
+              <button class="ascending-price-sort" onclick="onSortByPrice('ascending')">&#x2B9D;</button>
+            </th>
             <th>Actions</th>
           </tr>
         </thead>

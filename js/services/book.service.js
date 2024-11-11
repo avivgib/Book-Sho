@@ -92,3 +92,13 @@ function getBookStatistics() {
         return acc
     }, { cheap: 0, average: 0, expensive: 0 })
 }
+
+function sortByTitle(order) {
+    const multiplier = order === 'descending' ? -1 : 1
+    gBooks = gBooks.toSorted((a, b) => a.title.localeCompare(b.title) * multiplier)
+}
+
+function sortByPrice(order) {
+    const multiplier = order === 'descending' ? -1 : 1
+    gBooks = gBooks.toSorted((a, b) => (a.price - b.price) * multiplier)
+}
