@@ -16,7 +16,17 @@
 
     <section class="books-container">
       <section class="features-container">
-        <button class="add-book-btn" onclick="onAddBook()">Add Book</button>
+        <button class="add-book-btn" onclick="onAddBook(event)">Add Book</button>
+
+        <div class="add-book-container hide">
+          <div onclick="handleCloseForm(event)" class="add-class-backdrop">
+            <section class="form add-book-form">
+              <button onclick="handleCloseForm()" class="close-btn">x</button>
+              <div class="form"></div>
+            </section>
+          </div>
+        </div>
+
         <div class="icon-container">
           <button class="btn-table" onclick="onChangeLayout('table')">
             <span class="material-icons icon">format_list_bulleted</span>
@@ -66,11 +76,10 @@
     <div class="user-msg hide"></div>
 
     <footer>
-      <!-- <h1>©️ G-BLI BOOKS</h1> -->
       <h1 class="statistic-container">
-        <article class="expensive-count"><span></span> expensive books</article>
-        <article class="average-count"><span></span> average price books</article>
-        <article class="cheap-count"><span></span> cheap books</article>
+        <article class="expensive-count"></article>
+        <article class="average-count"></article>
+        <article class="cheap-count"></article>
       </h1>
     </footer>
 

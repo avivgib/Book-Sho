@@ -9,13 +9,8 @@ function onInit() {
 
 function renderBooks() {
     const books = getBooks()
-    if (gLayout === 'table') {
-        // document.querySelector('.features-container').classList.add('table')
-        renderBooksTable(books)
-    } else { 
-        // document.querySelector('.features-container').classList.add('cards')
-        renderBooksCards(books) 
-    }
+    if (gLayout === 'table') renderBooksTable(books)
+    else renderBooksCards(books)
     renderStatistics()
 }
 
@@ -114,12 +109,97 @@ function handleCloseModal(ev) {
     }
 }
 
+// Creation form to add new book
+function handleOpenForm(ev) {
+    ev.stopPropagation()
+
+    document.querySelector('.add-book-container').classList.remove("hide")
+    // DOM
+    const elBackDrop = document.querySelector('.add-class-backdrop')
+    elBackDrop.style.opacity = '1'
+    elBackDrop.style.pointerEvents = 'auto'
+
+    const elForm = document.querySelector('.form')
+    const strHTML = renderAddBookForm()
+    elForm.innerHTML = strHTML
+}
+
+function renderAddBookForm() {
+    return `<form onsubmit="handleSubmit(event)" class="add-book-form">
+                <label for="add-book-form-title" class="add-book-form-title">Add Book</label>
+
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" min="1" max="1000" step=".01" required>
+                
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author">
+                
+                <label for="pages">Print Length(pages):</label>
+                <input type="number" id="pages" name="pages" min="1" max="1000">
+                
+                <label for="publisher">Publisher:</label>
+                <input type="text" id="publisher" name="publisher">
+                
+                <label for="publication-date">Publication Date:</label>
+                <input type="date" id="publication-date" name="publication-date">
+                
+                <input type="submit" id="submit" value="Submit">
+            </form>`
+}
+
+function handleSubmit(ev) {
+    ev.stopPropagation()
+    ev.preventDefault()
+
+    const title = document.getElementById('title').value
+    let price = document.getElementById('price').value
+    const author = document.getElementById('author').value
+    const printLength = document.getElementById('pages').value
+    const publisher = document.getElementById('publisher').value
+    const publicationDate = document.getElementById('publication-date').value
+
+    addBook(title, price, author, printLength, publisher, publicationDate)
+
+    //DOM
+    renderBooks()
+    renderStatistics()
+    document.querySelector('.add-book-container').classList.add('hide')
+}
+
+function handleCloseForm(ev) {
+    ev.stopPropagation()
+
+    const targetClass = ev.target.classList
+    if (targetClass.contains('add-class-backdrop') || targetClass.contains('close-btn')) {
+        const elBackDrop = document.querySelector('.add-class-backdrop')
+        elBackDrop.style.opacity = '0'
+        elBackDrop.style.pointerEvents = 'none'
+        document.querySelector('.add-book-container').classList.add('hide')
+    }
+}
+
 function renderStatistics() {
     const bookStatistics = getBookStatistics()
+    const elCheapCount = document.querySelector('.cheap-count')
+    const elAverageCount = document.querySelector('.average-count')
+    const elExpensiveCount = document.querySelector('.expensive-count')
 
-    document.querySelector('.cheap-count span').innerHTML = bookStatistics.cheap
-    document.querySelector('.average-count span').innerHTML = bookStatistics.average
-    document.querySelector('.expensive-count span').innerHTML = bookStatistics.expensive
+    const cheapText = formatCountText(bookStatistics.cheap, 'cheap')
+    const averageText = formatCountText(bookStatistics.average, 'average')
+    const expensiveText = formatCountText(bookStatistics.expensive, 'expensive')
+
+    elCheapCount.innerHTML = cheapText
+    elAverageCount.innerHTML = averageText
+    elExpensiveCount.innerHTML = expensiveText
+}
+
+function formatCountText(count, type) {
+    if (count === 0) return `No ${type} books`
+    else if (count === 1) return `1 ${type} book`
+    else return `${count} ${type} books`
 }
 
 
@@ -155,20 +235,8 @@ function onRemoveBook(ev, bookId) {
     renderStatistics()
 }
 
-function onAddBook() {
-    const bookTitle = prompt('Book title')
-    const bookPrice = +prompt('Book price')
-    if (!bookTitle || !bookPrice) {
-        showErrorMsg('add')
-        return
-    }
-
-    // Model
-    addBook(bookTitle, bookPrice)
-
-    //DOM
-    renderBooks()
-    renderStatistics()
+function onAddBook(ev) {
+    handleOpenForm(ev)
 }
 
 function onSetFilterBy(ev, elInput) {
