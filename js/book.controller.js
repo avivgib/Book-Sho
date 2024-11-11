@@ -126,7 +126,7 @@ function handleOpenForm(ev) {
 
 function renderAddBookForm() {
     return `<form onsubmit="handleSubmit(event)" class="add-book-form">
-                <label for="add-book-form-title" class="add-book-form-title">Add Book</label>
+                <label for="add-book-form-title" class="add-book-form-title">Add New Book</label>
 
                 <label for="title">Title:</label>
                 <input type="text" id="title" name="title" required>
@@ -263,10 +263,10 @@ function onClearFilter(ev) {
     renderStatistics()
 }
 
-function showSuccessMsg(txt) {
+function showSuccessMsg(action) {
     const elUserMsg = document.querySelector('.user-msg')
     elUserMsg.classList.add('success')
-    elUserMsg.innerHTML = `Successfully ${txt} book.`
+    elUserMsg.innerHTML = `Successfully ${action} the book.`
     elUserMsg.classList.remove('hide')
 
     setTimeout(() => {
@@ -275,10 +275,10 @@ function showSuccessMsg(txt) {
     }, 3000);
 }
 
-function showErrorMsg(txt) {
+function showErrorMsg(action) {
     const elUserMsg = document.querySelector('.user-msg')
     elUserMsg.classList.add('error')
-    elUserMsg.innerHTML = `Failed to ${txt} book.`
+    elUserMsg.innerHTML = `Failed to ${action} the book.`
     elUserMsg.classList.remove('hide')
 
     setTimeout(() => {
