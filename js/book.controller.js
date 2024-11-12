@@ -268,18 +268,17 @@ function getStarsRating(rating) {
 }
 
 function renderBookDetailsModal(book) {
-    return `<pre>
+    return `
                 <img class="book-cover" src="img/${book.imgUrl}" alt="${book.title} cover">
                 <div class="book-info">
-                    <article>Title: ${book.title}</article>
+                    <article><h3>${book.title}</h3></article>
                     <article>Price: $${book.price}</article>
                     <article>Author: ${book.author}</article>
                     <article>Print Length: ${book.printLength}</article>
                     <article>Publisher: ${book.publisher}</article>
                     <article>publication Date: ${book.publicationDate}</article>
                     <article>Rating: ${getStarsRating(book.rating)}</article>
-                </div>
-            </pre>`
+                </div>`
 }
 
 function renderAddBookForm() {

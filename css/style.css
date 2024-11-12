@@ -132,11 +132,9 @@ th {
     display: flex;
     position: fixed;
     top: 20vh;
-    min-width: 300px;
-    max-width: 500px;
-    min-height: 240px;
-    max-height: 240px;
-    padding: 1em;    
+    min-width: 518px;
+    min-height: 280px;
+    padding: 1em;
     background-color: #fcfcfc;
     border-radius: 10px;
     box-shadow: 3px 3px 3px #adadad;
@@ -155,26 +153,30 @@ th {
 }
 
 .modal 
-pre {
+div {
     white-space: pre-wrap; 
     word-break: break-word; 
     max-height: 100%; 
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
 }
 
 .book-info {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1vh;
-    min-width: 0;
+    gap: 0.6vh;
+    /* min-width: 0; */
+}
+
+.book-info h3{
+    font-size: 1.2rem; 
+    margin: 0;
 }
 
 .book-cover {
-    max-height: 180px;
-    max-width: 120px;
+    max-height: 27vh;
+    max-width: 13vw;
     margin-right: 2em;
 }
 
