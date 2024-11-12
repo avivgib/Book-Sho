@@ -175,9 +175,9 @@ div {
 }
 
 .book-cover {
-    max-height: 27vh;
-    max-width: 13vw;
-    margin-right: 2em;
+    max-height: 35vh;
+    max-width: 20vw;
+    margin-right: 1.5em;
 }
 
 /* User Message */
@@ -355,6 +355,7 @@ img {
     max-width: 100px;
 }
 
+#submit,
 .add-book-btn, 
 .show-details-btn, 
 .update-btn, 
@@ -388,44 +389,3 @@ img {
 .delete-btn:hover {
     background-color: burlywood ;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-/* .modal {
-    display: flex;
-    position: fixed;
-    top: 20vh;
-    min-width: 300px;
-    max-width: 500px;
-    min-height: 240px;
-    max-height: 240px;
-    padding: 1em;    
-    background-color: #fcfcfc;
-    border-radius: 10px;
-    box-shadow: 3px 3px 3px #adadad;
-}
-.modal 
-.close-btn{
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    border-radius: 50%;
-    cursor: pointer;
-
-    border: 2px solid rgb(128, 120, 120);
-    box-shadow: 3px 3px 6px;
-} */
-
-
-
-
-

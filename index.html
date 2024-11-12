@@ -38,6 +38,7 @@
         </div>
 
         <div class="filter-container">
+          <i class="lni lni-sort-high-to-low"></i>
           <input
             oninput="onSetFilterBy(event, this)"
             class="input-filter"
@@ -51,6 +52,7 @@
         </div>
       </section>
       <table class="table-container">
+        
         <thead>
           <tr>
             <th>Title
@@ -73,9 +75,7 @@
 
         <div onclick="handleCloseModal(event)" class="backdrop">
           <section class="modal book-details-modal">
-            <button onclick="handleCloseModal(event)" class="close-btn">
-              x
-            </button>
+            <button onclick="handleCloseModal(event)" class="close-btn">x</button>
             <div class="details-container"></div>
           </section>
         </div>

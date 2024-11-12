@@ -100,7 +100,7 @@ function formatCountText(count, type) {
 
 // Book Actions
 function onAddBook(ev) {
-    handleOpenForm(ev)
+    handleOpenForm(ev, 'add')
 }
 
 function onRemoveBook(ev, bookId) {
@@ -121,18 +121,14 @@ function onRemoveBook(ev, bookId) {
 
 function onUpdateBook(ev, bookId) {
     ev.stopPropagation()
-    const newPrice = +prompt('Enter a new price', bookId.price)
-    if (!newPrice) {
-        showErrorMsg('update')
-        return
-    }
+    const book = findBook(bookId)
+    handleOpenForm(ev, 'update', book)
 
-    // Model
-    updateBook(bookId, newPrice)
+    // updateBook(bookId)
 
-    //DOM
-    renderBooks()
-    renderStatistics()
+    // //DOM
+    // renderBooks()
+    // renderStatistics()
 }
 
 function handleOpenModal(ev, bookId) {
@@ -160,17 +156,19 @@ function handleCloseModal(ev) {
     }
 }
 
-function handleOpenForm(ev) {
+function handleOpenForm(ev, action, bookToEdit = null) {
     ev.stopPropagation()
 
     document.querySelector('.add-book-container').classList.remove("hide")
-    // DOM
     const elBackDrop = document.querySelector('.add-class-backdrop')
     elBackDrop.style.opacity = '1'
     elBackDrop.style.pointerEvents = 'auto'
 
     const elForm = document.querySelector('.form')
-    const strHTML = renderAddBookForm()
+    elForm.dataset.action = action
+    elForm.dataset.bookId = bookToEdit ? bookToEdit.id : null
+
+    const strHTML = action === 'add' ? renderAddBookForm() : renderUpdateBookForm(bookToEdit)
     elForm.innerHTML = strHTML
 }
 
@@ -190,6 +188,10 @@ function handleSubmit(ev) {
     ev.stopPropagation()
     ev.preventDefault()
 
+    const form = ev.target.closest('.form')
+    const action = form.dataset.action
+    const bookId = form.dataset.bookId
+
     const title = document.getElementById('title').value
     let price = document.getElementById('price').value
     const author = document.getElementById('author').value
@@ -198,7 +200,11 @@ function handleSubmit(ev) {
     const publicationDate = document.getElementById('publication-date').value
     const rating = document.getElementById('rating').value
 
-    addBook(title, price, author, printLength, publisher, publicationDate, rating)
+    if (bookId && action === 'update') {
+        updateBook(bookId, title, price, author, printLength, publisher, publicationDate, rating)
+    } else {
+        addBook(title, price, author, printLength, publisher, publicationDate, rating)
+    }
 
     //DOM
     renderBooks()
@@ -274,7 +280,7 @@ function renderBookDetailsModal(book) {
                     <article><h3>${book.title}</h3></article>
                     <article>Price: $${book.price}</article>
                     <article>Author: ${book.author}</article>
-                    <article>Print Length: ${book.printLength}</article>
+                    <article>Print Length: ${book.printLength} pages</article>
                     <article>Publisher: ${book.publisher}</article>
                     <article>publication Date: ${book.publicationDate}</article>
                     <article>Rating: ${getStarsRating(book.rating)}</article>
@@ -305,6 +311,35 @@ function renderAddBookForm() {
                 
                 <label for="rating">Rating:</label>
                 <input type="number" id="rating" name="rating" min="1" max="5" value="0">
+                
+                <input type="submit" id="submit" value="Submit">
+            </form>`
+}
+
+function renderUpdateBookForm(book) {
+    return `<form onsubmit="handleSubmit(event)" class="add-book-form">
+                <label for="add-book-form-title" class="add-book-form-title">Edit Book</label>
+
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" value="${book.title}" required>
+
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" min="1" max="1000" step=".01" value="${book.price}" required>
+                
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author" value="${book.author}">
+                
+                <label for="pages">Print Length(pages):</label>
+                <input type="number" id="pages" name="pages" min="1" max="1000" value="${book.printLength}">
+                
+                <label for="publisher">Publisher:</label>
+                <input type="text" id="publisher" name="publisher" value="${book.publisher}">
+                
+                <label for="publication-date">Publication Date:</label>
+                <input type="date" id="publication-date" name="publication-date" value="${book.publicationDate}">
+                
+                <label for="rating">Rating:</label>
+                <input type="number" id="rating" name="rating" min="1" max="5" value="${book.rating}">
                 
                 <input type="submit" id="submit" value="Submit">
             </form>`

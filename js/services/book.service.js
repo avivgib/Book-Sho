@@ -33,9 +33,15 @@ function removeBook(bookId) {
     showSuccessMsg('removed')
 }
 
-function updateBook(bookId, newPrice) {
+function updateBook(bookId, title, price, author, printLength, publisher, publicationDate, rating) {
     const book = findBook(bookId)
-    book.price = padPrice(newPrice)
+    book.title = title
+    book.price = price
+    book.author = author
+    book.printLength = printLength
+    book.publisher = publisher
+    book.publicationDate = publicationDate
+    book.rating = rating
 
     _saveBooks()
     showSuccessMsg('updated')
@@ -63,7 +69,8 @@ function _createBook(title, price, author, printLength, publisher, publicationDa
         title,
         price: padPrice(price),
         author: author || '',
-        printLength: printLength ? `${printLength} pages` : '',
+        // printLength: printLength ? `${printLength} pages` : '',
+        printLength: printLength || '',
         publisher: publisher || '',
         publicationDate: publicationDate || '',
         rating: rating || '',
