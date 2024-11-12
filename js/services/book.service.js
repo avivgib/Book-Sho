@@ -49,9 +49,9 @@ function _createBooks() {
 
     gBooks = [
         _createBook('Harry Potter and the Cursed Child', 140.5, 'J.K. Rowling', 398, 'Pottermore Publishing', '2017-07-25', 5, 'harry-potter-and-the-cursed-child.jpg'),
-        _createBook('The Son of Neptune', 60.4, 'Rick Riordan', 546, 'Disney Hyperion', '2011-10-04', 3, 'the-son-of-neptune.jpg'),
+        _createBook('The Son of Neptune', 60.4, 'Rick Riordan', 546, 'Disney Hyperion', '2011-10-04', 5, 'the-son-of-neptune.jpg'),
         _createBook('No Strangers Here', 64.90, 'Carlene O\'Connor', 400, 'Kensington', '2023-08-29', 4, 'no-strangers-here.jpg'),
-        _createBook('The Five', 101.9, 'Hallie Rubenhold', 368, 'Mariner Books', '2020-03-03', 4, 'the-five.jpg',)
+        _createBook('The Five', 101.9, 'Hallie Rubenhold', 368, 'Mariner Books', '2020-03-03', 3, 'the-five.jpg',)
     ]
 
     _saveBooks()
