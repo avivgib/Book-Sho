@@ -53,7 +53,7 @@ footer {
 }
 
 /* Table and Book Container */
-table {
+.table-container {
     width: 70%;
     margin: .5em;
     margin-inline: auto;
@@ -242,10 +242,12 @@ div {
     align-items: flex-start;
     justify-content: center;
     gap: 20px;
-    min-width: 790px;
+    padding: 10px;
+    overflow-y: auto;
 }
 
 .book-preview {
+    position: relative;
     background-color: beige;
     color: black;
     width: 300px;
@@ -286,8 +288,8 @@ div {
 }
 
 .book-preview .close-btn{
+    position: absolute;
     align-self: flex-end;
-    position: static;
     top: -8px;
     right: -8px;
     border-radius: 50%;

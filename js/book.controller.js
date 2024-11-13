@@ -59,13 +59,13 @@ function renderBooksCards(books) {
         `<div class="book-preview">
                 <button class="close-btn" onclick="onRemoveBook(event, '${book.id}')">x</button>
                 <h5>${book.title}</h5>
+                <img src="img/${book.imgUrl}">
                 <h6> 
                     <div>Price: <span> $${book.price}</span> </div>
                     <span>${getStarsRating(book.rating)}</span>
                 </h6>
                 <button class="show-details-btn" onclick="handleOpenModal(event, '${book.id}')">Details</button>
                 <button class="update-btn" onclick="onUpdateBook(event, '${book.id}')">Update</button>
-                <img src="img/${book.imgUrl}">
             </div>
             `)
 
@@ -116,19 +116,12 @@ function onRemoveBook(ev, bookId) {
 
     //DOM
     renderBooks()
-    renderStatistics()
 }
 
 function onUpdateBook(ev, bookId) {
     ev.stopPropagation()
     const book = findBook(bookId)
     handleOpenForm(ev, 'update', book)
-
-    // updateBook(bookId)
-
-    // //DOM
-    // renderBooks()
-    // renderStatistics()
 }
 
 function handleOpenModal(ev, bookId) {
@@ -208,7 +201,6 @@ function handleSubmit(ev) {
 
     //DOM
     renderBooks()
-    renderStatistics()
     document.querySelector('.add-book-container').classList.add('hide')
 }
 
@@ -228,7 +220,6 @@ function onSetFilterBy(ev, elInput) {
 
     //DOM
     renderBooks()
-    renderStatistics()
 }
 
 function onClearFilter(ev) {
@@ -240,7 +231,6 @@ function onClearFilter(ev) {
     //DOM
     setFilterBy('')
     renderBooks()
-    renderStatistics()
 }
 
 // Sort Functions
@@ -287,6 +277,14 @@ function renderBookDetailsModal(book) {
                 </div>`
 }
 
+// function onOpenModal(bookId) {
+
+//     if (bookId) {
+//         title => book.title
+//         price => book.price
+//     }
+//     // show modal
+// }
 function renderAddBookForm() {
     return `<form onsubmit="handleSubmit(event)" class="add-book-form">
                 <label for="add-book-form-title" class="add-book-form-title">Add New Book</label>
