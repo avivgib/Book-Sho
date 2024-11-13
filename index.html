@@ -23,17 +23,35 @@
           <div onclick="handleCloseForm(event)" class="add-class-backdrop">
             <section class="form add-book-form">
               <button onclick="handleCloseForm()" class="close-btn">x</button>
-              <div class="form"></div>
+              <form onsubmit="handleSubmit(event)" class="add-book-form">
+                <label for="add-book-form-title" class="add-book-form-title">Add New Book</label>
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" min="1" max="1000" step=".01" required>
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author">
+                <label for="pages">Print Length(pages):</label>
+                <input type="number" id="pages" name="pages" min="1" max="1000">
+                <label for="publisher">Publisher:</label>
+                <input type="text" id="publisher" name="publisher">
+                <label for="publication-date">Publication Date:</label>
+                <input type="date" id="publication-date" name="publication-date">
+                <label for="rating">Rating:</label>
+                <input type="number" id="rating" name="rating" min="1" max="5">
+                <input type="submit" id="submit" value="Submit">
+            </form>
+            
             </section>
           </div>
         </div>
 
-        <div class="icon-container">
+        <div class="views-container">
           <button class="btn-table" onclick="onChangeLayout('table')">
-            <span class="material-icons icon">format_list_bulleted</span>
+            <span class="material-views view">format_list_bulleted</span>
           </button>
           <button class="btn-cards" onclick="onChangeLayout('cards')">
-            <span class="material-icons icon">grid_view</span>
+            <span class="material-views view">grid_view</span>
           </button>
         </div>
 
@@ -51,8 +69,8 @@
           </button>
         </div>
       </section>
-      
-      <table class="table-container">
+
+      <table class="table-container">  
         <thead>
           <tr>
             <th>Title
@@ -81,7 +99,6 @@
         </div>
       </table>
 
-      <!-- <button onclick="onOpenModal()">ADD A BOOK</button> -->
       <div class="cards-container"></div>
     </section>
 

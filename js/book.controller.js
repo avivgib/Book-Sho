@@ -116,6 +116,7 @@ function onRemoveBook(ev, bookId) {
 
     //DOM
     renderBooks()
+    renderStatistics()
 }
 
 function onUpdateBook(ev, bookId) {
@@ -147,6 +148,18 @@ function handleCloseModal(ev) {
         elBackDrop.style.opacity = '0'
         elBackDrop.style.pointerEvents = 'none'
     }
+    cleanFormFields()
+}
+
+function cleanFormFields() {
+    document.querySelector('.add-book-form-title').innerHTML = 'Edit Book'
+    document.getElementById('title').value = ''
+    document.getElementById('price').value = ''
+    document.getElementById('author').value = ''
+    document.getElementById('pages').value = ''
+    document.getElementById('publisher').value = ''
+    document.getElementById('publication-date').value = ''
+    document.getElementById('rating').value = 0
 }
 
 function handleOpenForm(ev, action, bookToEdit = null) {
@@ -161,8 +174,9 @@ function handleOpenForm(ev, action, bookToEdit = null) {
     elForm.dataset.action = action
     elForm.dataset.bookId = bookToEdit ? bookToEdit.id : null
 
-    const strHTML = action === 'add' ? renderAddBookForm() : renderUpdateBookForm(bookToEdit)
-    elForm.innerHTML = strHTML
+    action === 'add' ? renderBookForm() : renderBookForm(bookToEdit)
+    // const strHTML = action === 'add' ? renderAddBookForm() : renderUpdateBookForm(bookToEdit)
+    // elForm.innerHTML = strHTML
 }
 
 function handleCloseForm(ev) {
@@ -201,6 +215,7 @@ function handleSubmit(ev) {
 
     //DOM
     renderBooks()
+    renderStatistics()
     document.querySelector('.add-book-container').classList.add('hide')
 }
 
@@ -220,6 +235,7 @@ function onSetFilterBy(ev, elInput) {
 
     //DOM
     renderBooks()
+    renderStatistics()
 }
 
 function onClearFilter(ev) {
@@ -231,6 +247,7 @@ function onClearFilter(ev) {
     //DOM
     setFilterBy('')
     renderBooks()
+    renderStatistics()
 }
 
 // Sort Functions
@@ -285,62 +302,31 @@ function renderBookDetailsModal(book) {
 //     }
 //     // show modal
 // }
-function renderAddBookForm() {
-    return `<form onsubmit="handleSubmit(event)" class="add-book-form">
-                <label for="add-book-form-title" class="add-book-form-title">Add New Book</label>
+function renderBookForm(book = null) {
+    if (!book) {
+        resetBookForm()
+        return
+    }
 
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" required>
-
-                <label for="price">Price:</label>
-                <input type="number" id="price" name="price" min="1" max="1000" step=".01" required>
-                
-                <label for="author">Author:</label>
-                <input type="text" id="author" name="author">
-                
-                <label for="pages">Print Length(pages):</label>
-                <input type="number" id="pages" name="pages" min="1" max="1000">
-                
-                <label for="publisher">Publisher:</label>
-                <input type="text" id="publisher" name="publisher">
-                
-                <label for="publication-date">Publication Date:</label>
-                <input type="date" id="publication-date" name="publication-date">
-                
-                <label for="rating">Rating:</label>
-                <input type="number" id="rating" name="rating" min="1" max="5" value="0">
-                
-                <input type="submit" id="submit" value="Submit">
-            </form>`
+    document.querySelector('.add-book-form-title').innerHTML = 'Edit Book'
+    document.getElementById('title').value = book.title
+    document.getElementById('price').value = book.price
+    document.getElementById('author').value = book.author
+    document.getElementById('pages').value = book.printLength
+    document.getElementById('publisher').value = book.publisher
+    document.getElementById('publication-date').value = book.publicationDate
+    document.getElementById('rating').value = book.rating
 }
 
-function renderUpdateBookForm(book) {
-    return `<form onsubmit="handleSubmit(event)" class="add-book-form">
-                <label for="add-book-form-title" class="add-book-form-title">Edit Book</label>
-
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" value="${book.title}" required>
-
-                <label for="price">Price:</label>
-                <input type="number" id="price" name="price" min="1" max="1000" step=".01" value="${book.price}" required>
-                
-                <label for="author">Author:</label>
-                <input type="text" id="author" name="author" value="${book.author}">
-                
-                <label for="pages">Print Length(pages):</label>
-                <input type="number" id="pages" name="pages" min="1" max="1000" value="${book.printLength}">
-                
-                <label for="publisher">Publisher:</label>
-                <input type="text" id="publisher" name="publisher" value="${book.publisher}">
-                
-                <label for="publication-date">Publication Date:</label>
-                <input type="date" id="publication-date" name="publication-date" value="${book.publicationDate}">
-                
-                <label for="rating">Rating:</label>
-                <input type="number" id="rating" name="rating" min="1" max="5" value="${book.rating}">
-                
-                <input type="submit" id="submit" value="Submit">
-            </form>`
+function resetBookForm() {
+    document.querySelector('.add-book-form-title').innerHTML = 'Add New Book'
+    document.getElementById('title').value = ''
+    document.getElementById('price').value = ''
+    document.getElementById('author').value = ''
+    document.getElementById('pages').value = ''
+    document.getElementById('publisher').value = ''
+    document.getElementById('publication-date').value = ''
+    document.getElementById('rating').value = ''
 }
 
 function showSuccessMsg(action) {
