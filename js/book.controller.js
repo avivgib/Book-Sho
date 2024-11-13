@@ -175,8 +175,6 @@ function handleOpenForm(ev, action, bookToEdit = null) {
     elForm.dataset.bookId = bookToEdit ? bookToEdit.id : null
 
     action === 'add' ? renderBookForm() : renderBookForm(bookToEdit)
-    // const strHTML = action === 'add' ? renderAddBookForm() : renderUpdateBookForm(bookToEdit)
-    // elForm.innerHTML = strHTML
 }
 
 function handleCloseForm(ev) {
@@ -294,14 +292,6 @@ function renderBookDetailsModal(book) {
                 </div>`
 }
 
-// function onOpenModal(bookId) {
-
-//     if (bookId) {
-//         title => book.title
-//         price => book.price
-//     }
-//     // show modal
-// }
 function renderBookForm(book = null) {
     if (!book) {
         resetBookForm()
