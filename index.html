@@ -17,31 +17,58 @@
 
     <section class="books-container">
       <section class="features-container">
-        <button class="add-book-btn" onclick="onAddBook(event)">Add Book</button>
+        <button class="add-book-btn" onclick="onAddBook(event)">
+          Add Book
+        </button>
 
         <div class="add-book-container hide">
           <div onclick="handleCloseForm(event)" class="add-class-backdrop">
             <section class="form add-book-form">
-              <button onclick="handleCloseForm()" class="close-btn">x</button>
+              <button onclick="handleCloseForm(event)" class="close-btn">x</button>
               <form onsubmit="handleSubmit(event)" class="add-book-form">
-                <label for="add-book-form-title" class="add-book-form-title">Add New Book</label>
+                <label for="add-book-form-title" class="add-book-form-title"
+                  >Add New Book</label
+                >
                 <label for="title">Title:</label>
-                <input type="text" id="title" name="title" required>
+                <input type="text" class="title" name="title" required />
                 <label for="price">Price:</label>
-                <input type="number" id="price" name="price" min="1" max="1000" step=".01" required>
+                <input
+                  type="number"
+                  class="price"
+                  name="price"
+                  min="1"
+                  max="1000"
+                  step=".01"
+                  required
+                />
                 <label for="author">Author:</label>
-                <input type="text" id="author" name="author">
+                <input type="text" class="author" name="author" />
                 <label for="pages">Print Length(pages):</label>
-                <input type="number" id="pages" name="pages" min="1" max="1000">
+                <input
+                  type="number"
+                  class="pages"
+                  name="pages"
+                  min="1"
+                  max="1000"
+                />
                 <label for="publisher">Publisher:</label>
-                <input type="text" id="publisher" name="publisher">
+                <input type="text" class="publisher" name="publisher" />
                 <label for="publication-date">Publication Date:</label>
-                <input type="date" id="publication-date" name="publication-date">
+                <input
+                  type="date"
+                  class="publication-date"
+                  name="publication-date"
+                />
                 <label for="rating">Rating:</label>
-                <input type="number" id="rating" name="rating" min="1" max="5">
-                <input type="submit" id="submit" value="Submit">
-            </form>
-            
+                <input
+                  type="number"
+                  class="rating"
+                  name="rating"
+                  min="1"
+                  max="5"
+                />
+                <input type="submit" class="submit" value="Submit" />
+              </form>
             </section>
           </div>
         </div>
@@ -54,9 +81,10 @@
             <span class="material-icons icon">grid_view</span>
           </button>
         </div>
+      </section>
 
-        <div class="filter-container">
-          <i class="lni lni-sort-high-to-low"></i>
+      
+      <section class="filters-container">
           <input
             oninput="onSetFilterBy(event, this)"
             class="input-filter"
@@ -64,26 +92,78 @@
             placeholder="Enter book title..."
             name="by-title"
           />
-          <button class="clear-btn" onclick="onClearFilter(event)">
-            Clear
-          </button>
+          
+          <div class="stars-filter" name="by-rating">  
+            <span class="star" data-value="1" onclick="onClickStarsFilter(1, event, this)"></span>
+            <span class="star" data-value="2" onclick="onClickStarsFilter(2, event, this)"></span>
+            <span class="star" data-value="3" onclick="onClickStarsFilter(3, event, this)"></span>
+            <span class="star" data-value="4" onclick="onClickStarsFilter(4, event, this)"></span>
+            <span class="star" data-value="5" onclick="onClickStarsFilter(5, event, this)"></span>
+          </span>
         </div>
+        
+        <!-- <input type="range" min="1" max="5" step="1" onchange="updateStars(this.value)" class="custom-slider"> -->
+        <!-- <button class="min-max-stars-btn"></button> -->
+        
+        
+        <button class="clear-btn" onclick="onClearFilter(event)">
+          Clear
+        </button>
+
       </section>
 
-      <table class="table-container">  
+
+
+<!-- table -->
+
+
+      <table class="table-container">
         <thead>
           <tr>
-            <th>Title
-              <button class="descending-title-sort hide" onclick="onSortByTitle('descending')">&#x2B9F;</button>
-              <button class="ascending-title-sort" onclick="onSortByTitle('ascending')">&#x2B9D;</button>
+            <th>
+              Title
+              <button
+                class="descending-title-sort hide"
+                onclick="onSortByTitle('descending')"
+              >
+                &#x2B9F;
+              </button>
+              <button
+                class="ascending-title-sort"
+                onclick="onSortByTitle('ascending')"
+              >
+                &#x2B9D;
+              </button>
             </th>
-            <th>Price
-              <button class="descending-price-sort hide" onclick="onSortByPrice('descending')">&#x2B9F;</button>
-              <button class="ascending-price-sort" onclick="onSortByPrice('ascending')">&#x2B9D;</button>
+            <th>
+              Price
+              <button
+                class="descending-price-sort hide"
+                onclick="onSortByPrice('descending')"
+              >
+                &#x2B9F;
+              </button>
+              <button
+                class="ascending-price-sort"
+                onclick="onSortByPrice('ascending')"
+              >
+                &#x2B9D;
+              </button>
             </th>
-            <th>Rating
-              <button class="descending-rating-sort hide" onclick="onSortByRating('descending')">&#x2B9F;</button>
-              <button class="ascending-rating-sort" onclick="onSortByRating('ascending')">&#x2B9D;</button>
+            <th>
+              Rating
+              <button
+                class="descending-rating-sort hide"
+                onclick="onSortByRating('descending')"
+              >
+                &#x2B9F;
+              </button>
+              <button
+                class="ascending-rating-sort"
+                onclick="onSortByRating('ascending')"
+              >
+                &#x2B9D;
+              </button>
             </th>
             <th>Actions</th>
           </tr>
@@ -93,7 +173,9 @@
 
         <div onclick="handleCloseModal(event)" class="backdrop">
           <section class="modal book-details-modal">
-            <button onclick="handleCloseModal(event)" class="close-btn">x</button>
+            <button onclick="handleCloseModal(event)" class="close-btn">
+              x
+            </button>
             <div class="details-container"></div>
           </section>
         </div>

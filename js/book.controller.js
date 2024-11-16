@@ -3,13 +3,19 @@
 const LAYOUT_KEY = 'layuot'
 var gLayout = loadFromStorage(LAYOUT_KEY) || 'table'
 
+const gQueryOptions = {
+    filterBy: { txt: '', rating: 0 },
+    sortBy: {},
+    page: { idx: 0, size: 5 },
+}
+
 // Initialization and Render
 function onInit() {
     renderBooks()
 }
 
 function renderBooks() {
-    const books = getBooks()
+    const books = getBooks(gQueryOptions)
     if (gLayout === 'table') renderBooksTable(books)
     else renderBooksCards(books)
     renderStatistics()
@@ -31,19 +37,30 @@ function renderBooksTable(books) {
         `<tr>
                 <th>${book.title}</th>
                 <th>$${book.price}</th>
-                <th>${getStarsRating(book.rating)}</th>
+                <th><span style="color: gold; font-size: 200%;">${getStarsRating(book.rating)}</span></th>
                     <th class="actions">
                     <button class="show-details-btn" onclick="handleOpenModal(event, '${book.id}')">Details</button> 
                     <button class="update-btn" onclick="onUpdateBook(event, '${book.id}')">Update</button> 
-                <button class="delete-btn" onclick="onRemoveBook(event, '${book.id}')">Delete</button> 
+                    <button class="remove-btn" onclick="onRemoveBook(event, '${book.id}')">Remove</button> 
                 </th>
         </tr>`
     )
 
     document.querySelector('.cards-container').innerHTML = ''
-    hideElemet('.cards-container')
-    showElemet('.table-container')
+    hideElement('.cards-container')
+    showElement('.table-container')
     elBooks.innerHTML = strHTMLs.join('')
+}
+
+function onStarClick(rating) {
+    const stars = document.querySelectorAll('.stars-filter .star');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.add('selected');
+        } else {
+            star.classList.remove('selected');
+        }
+    });
 }
 
 function renderBooksCards(books) {
@@ -56,21 +73,22 @@ function renderBooksCards(books) {
     }
 
     const strHTMLs = books.map(book =>
-        `<div class="book-preview">
-                <button class="close-btn" onclick="onRemoveBook(event, '${book.id}')">x</button>
+        `<div class="book-preview">                
+        <!-- <button class="close-btn" onclick="onRemoveBook(event, '${book.id}')">x</button> -->
                 <h5>${book.title}</h5>
                 <img src="img/${book.imgUrl}">
                 <h6> 
                     <div>Price: <span> $${book.price}</span> </div>
-                    <span>${getStarsRating(book.rating)}</span>
+                    <span style="color: gold; font-size: 200%;">${getStarsRating(book.rating)}</span>
                 </h6>
                 <button class="show-details-btn" onclick="handleOpenModal(event, '${book.id}')">Details</button>
                 <button class="update-btn" onclick="onUpdateBook(event, '${book.id}')">Update</button>
+                <button class="remove-btn" onclick="onRemoveBook(event, '${book.id}')">Remove</button> 
             </div>
             `)
 
-    hideElemet('.table-container')
-    showElemet('.cards-container')
+    hideElement('.table-container')
+    showElement('.cards-container')
     elBooks.innerHTML = strHTMLs.join('')
 }
 
@@ -116,7 +134,6 @@ function onRemoveBook(ev, bookId) {
 
     //DOM
     renderBooks()
-    renderStatistics()
 }
 
 function onUpdateBook(ev, bookId) {
@@ -153,13 +170,13 @@ function handleCloseModal(ev) {
 
 function cleanFormFields() {
     document.querySelector('.add-book-form-title').innerHTML = 'Edit Book'
-    document.getElementById('title').value = ''
-    document.getElementById('price').value = ''
-    document.getElementById('author').value = ''
-    document.getElementById('pages').value = ''
-    document.getElementById('publisher').value = ''
-    document.getElementById('publication-date').value = ''
-    document.getElementById('rating').value = 0
+    document.querySelector('.title').value = ''
+    document.querySelector('.price').value = ''
+    document.querySelector('.author').value = ''
+    document.querySelector('.pages').value = ''
+    document.querySelector('.publisher').value = ''
+    document.querySelector('.publication-date').value = ''
+    document.querySelector('.rating').value = 0
 }
 
 function handleOpenForm(ev, action, bookToEdit = null) {
@@ -197,13 +214,13 @@ function handleSubmit(ev) {
     const action = form.dataset.action
     const bookId = form.dataset.bookId
 
-    const title = document.getElementById('title').value
-    let price = document.getElementById('price').value
-    const author = document.getElementById('author').value
-    const printLength = document.getElementById('pages').value
-    const publisher = document.getElementById('publisher').value
-    const publicationDate = document.getElementById('publication-date').value
-    const rating = document.getElementById('rating').value
+    const title = document.querySelector('.title').value
+    let price = document.querySelector('.price').value
+    const author = document.querySelector('.author').value
+    const printLength = document.querySelector('.pages').value
+    const publisher = document.querySelector('.publisher').value
+    const publicationDate = document.querySelector('.publication-date').value
+    const rating = document.querySelector('.rating').value
 
     if (bookId && action === 'update') {
         updateBook(bookId, title, price, author, printLength, publisher, publicationDate, rating)
@@ -213,7 +230,6 @@ function handleSubmit(ev) {
 
     //DOM
     renderBooks()
-    renderStatistics()
     document.querySelector('.add-book-container').classList.add('hide')
 }
 
@@ -228,24 +244,41 @@ function onSetFilterBy(ev, elInput) {
     ev.stopPropagation()
 
     // Model
-    var filterBy = elInput.value
-    setFilterBy(filterBy)
+    if (elInput.name ==='by-title') {
+        gQueryOptions.filterBy.txt = elInput.value
+    } else {
+        const starsSelected = document.querySelectorAll('.star.selected').length
+        gQueryOptions.filterBy.rating = starsSelected
+    }
+
+    setFilterBy(gQueryOptions.filterBy)
 
     //DOM
     renderBooks()
-    renderStatistics()
 }
 
 function onClearFilter(ev) {
     ev.stopPropagation()
 
+    // Clear string filter
     document.querySelector('.input-filter').value = ''
+
+    // Clear stars rating
+    clearRatingFilter()
+
     gBooks = loadFromStorage(STORAGE_KEY)
 
     //DOM
     setFilterBy('')
     renderBooks()
-    renderStatistics()
+}
+
+function clearRatingFilter() {
+    const stars = document.querySelectorAll('.stars-filter .star')
+    stars.forEach(star => {
+        const starValue = parseInt(star.getAttribute('data-value'))
+        star.classList.remove('selected')
+    })
 }
 
 // Sort Functions
@@ -275,8 +308,26 @@ function onSortByRating(order) {
 
 // Helper Functions 
 function getStarsRating(rating) {
-    return '⭐'.repeat(rating)
+    return '★'.repeat(rating).concat('☆'.repeat(5 - rating)) 
 }
+
+function onClickStarsFilter(minRating, ev, starElement) {
+    gQueryOptions.filterBy.rating = 6 - minRating
+    const stars = document.querySelectorAll('.stars-filter .star')
+
+    stars.forEach(star => {
+        const starValue = parseInt(star.getAttribute('data-value'))
+
+        if (starValue < minRating) {
+            star.classList.remove('selected')
+        } else {
+            star.classList.add('selected')
+        }
+    })
+
+    onSetFilterBy(ev ,starElement)
+}
+
 
 function renderBookDetailsModal(book) {
     return `
@@ -288,7 +339,7 @@ function renderBookDetailsModal(book) {
                     <article>Print Length: ${book.printLength} pages</article>
                     <article>Publisher: ${book.publisher}</article>
                     <article>publication Date: ${book.publicationDate}</article>
-                    <article>Rating: ${getStarsRating(book.rating)}</article>
+                    <article>Rating: <span style="color: gold; font-size: 150%;">${getStarsRating(book.rating)}</span></article>
                 </div>`
 }
 
@@ -299,24 +350,24 @@ function renderBookForm(book = null) {
     }
 
     document.querySelector('.add-book-form-title').innerHTML = 'Edit Book'
-    document.getElementById('title').value = book.title
-    document.getElementById('price').value = book.price
-    document.getElementById('author').value = book.author
-    document.getElementById('pages').value = book.printLength
-    document.getElementById('publisher').value = book.publisher
-    document.getElementById('publication-date').value = book.publicationDate
-    document.getElementById('rating').value = book.rating
+    document.querySelector('.title').value = book.title
+    document.querySelector('.price').value = book.price
+    document.querySelector('.author').value = book.author
+    document.querySelector('.pages').value = book.printLength
+    document.querySelector('.publisher').value = book.publisher
+    document.querySelector('.publication-date').value = book.publicationDate
+    document.querySelector('.rating').value = book.rating
 }
 
 function resetBookForm() {
     document.querySelector('.add-book-form-title').innerHTML = 'Add New Book'
-    document.getElementById('title').value = ''
-    document.getElementById('price').value = ''
-    document.getElementById('author').value = ''
-    document.getElementById('pages').value = ''
-    document.getElementById('publisher').value = ''
-    document.getElementById('publication-date').value = ''
-    document.getElementById('rating').value = ''
+    document.querySelector('.title').value = ''
+    document.querySelector('.price').value = ''
+    document.querySelector('.author').value = ''
+    document.querySelector('.pages').value = ''
+    document.querySelector('.publisher').value = ''
+    document.querySelector('.publication-date').value = ''
+    document.querySelector('.rating').value = ''
 }
 
 function showSuccessMsg(action) {
@@ -343,12 +394,12 @@ function showErrorMsg(action) {
     }, 3000);
 }
 
-function showElemet(element) {
+function showElement(element) {
     const elToShow = document.querySelector(element)
     elToShow.classList.remove('hide')
 }
 
-function hideElemet(element) {
+function hideElement(element) {
     const elToHide = document.querySelector(element)
     elToHide.classList.add('hide')
 }

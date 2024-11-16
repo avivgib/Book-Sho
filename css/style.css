@@ -1,347 +1,413 @@
 /* General Styles */
 * {
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-    scroll-margin-block-start: 3rem;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  scroll-margin-block-start: 3rem;
 }
 
 body {
-    background-image: url('../img/library-bg.jpg');
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    font-family: cursive;
-    overflow-y: hidden;
+  /* background-image: url('../img/library-bg.jpg'); */
+  background-color: #67664f;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: cursive;
+  overflow-y: hidden;
 }
 
 /* Header and Footer */
 header {
-    top: 10px;
-    border-block-start: 10px solid white;
-    margin-block-end: 4vh;
-    width: 95%;
-    height: 4rem;
+  top: 10px;
+  border-block-start: 10px solid white;
+  margin-block-end: 4vh;
+  width: 95%;
+  height: 4rem;
 }
 
 footer {
-    bottom: 10px;
-    height: 3rem;
-    border-block-end: 10px solid white;
-    padding-inline: 1em;
-    margin-block-start: 3vh;
-    width: 100%;
-    font-size: 8px;
+  bottom: 10px;
+  height: 3rem;
+  border-block-end: 10px solid white;
+  padding-inline: 1em;
+  margin-block-start: 3vh;
+  width: 100%;
+  font-size: 8px;
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
 }
 
-header, 
+header,
 footer {
-    position: sticky;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;  
-    margin-inline: auto;
-    border-radius: 10px;
-    
-    border: 1px solid rgb(108, 120, 133);
-    background-color: beige ;
+  position: sticky;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+  border-radius: 10px;
+
+  border: 1px solid rgb(108, 120, 133);
+  background-color: beige;
 }
 
 /* Table and Book Container */
 .table-container {
-    width: 70%;
-    margin: .5em;
-    margin-inline: auto;
-    border-collapse: collapse;
-    font-size: 17px;
+  width: 70%;
+  margin: 0.5em;
+  margin-inline: auto;
+  border-collapse: collapse;
+  font-size: 17px;
 }
 
 .books-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    max-height: calc(100vh - 10rem);
-    overflow-y: auto;
-    margin: 1vh 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 10rem);
+  overflow-y: auto;
+  margin: 1vh 0;
 }
 
-.books-container 
-thead {
-    border: 1px solid gray;
-    background-color: lightgray;
+.books-container thead {
+  border: 1px solid gray;
+  background-color: lightgray;
 }
 
-.books-container 
-tbody {
-    background-color: beige;
+.books-container tbody {
+  background-color: beige;
 }
 
-table, th, tr{
-    border: 1px, solid;
+table,
+th,
+tr {
+  border: 1px, solid;
 }
 
 th {
-    padding: .5em 1em;
+  padding: 0.5em 1em;
 }
 
 /* Button and Features Container */
 .features-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-inline-start: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 76%;
+  margin-inline: 8%;
+  margin-block-end: 10px;
 }
 
-.filter-container {
-    left: auto;
-    margin-inline-end: 10%;
-    margin-block-end: 10px;
+.filters-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  left: auto;
+  margin-inline: 15%;
+  margin-block-end: 10px;
+  gap: 2px;
+}
+
+/* .custom-slider {
+    -webkit-appearance: none;
+
+    width: 100%;
+    height: 8px;
+    background-color: beige;    
+} */
+
+.stars-filter {
+  display: flex;
+  align-items: center;
+  background-color: beige;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px #adadad;
+  padding: 5px;
+  direction: rtl;
+}
+
+.stars-filter span {
+  border-radius: 5px;
+  color: gold;
+  font-size: 200%;
+  cursor: pointer;
+}
+
+.star {
+  font-size: 24px;
+  color: lightgray;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star.selected,
+.star:hover {
+  color: gold;
+}
+
+.stars-filter .star {
+  font-size: 30px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.stars-filter .star::after {
+  content: "☆";
+  color: #676666;
+  transition: color 0.2s;
+}
+
+.stars-filter .star:hover::after,
+.stars-filter .star:hover ~ .star::after {
+  content: "★";
+  color: #ffd700;
+}
+
+.stars-filter .star.selected::after,
+.stars-filter .star.selected ~ .star::after {
+  content: "★";
+  color: #ffd700;
 }
 
 .add-book-container {
-    position: fixed;
-    z-index: 12;
+  position: fixed;
+  z-index: 12;
 }
 
-.add-book-btn{
-    right: auto;
-    margin-inline-start: 10%;
-    margin-block-end: 10px;
+.add-book-btn {
+  right: auto;
+  margin-inline-start: 10%;
+  margin-block-end: 10px;
 }
 
 /* Modal and Book Details */
 .add-class-backdrop,
 .backdrop {
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    inset: 0;
-    
-    background-color: #b1b1b199;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease-in;
-    z-index: 2;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+
+  background-color: #b1b1b199;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease-in;
+  z-index: 2;
 }
 
 .modal {
-    display: flex;
-    position: fixed;
-    top: 20vh;
-    min-width: 518px;
-    min-height: 280px;
-    padding: 1em;
-    background-color: #fcfcfc;
-    border-radius: 10px;
-    box-shadow: 3px 3px 3px #adadad;
+  display: flex;
+  position: fixed;
+  top: 20vh;
+  min-width: 518px;
+  min-height: 280px;
+  padding: 1em;
+  background-color: #fcfcfc;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px #adadad;
 }
 
-.modal 
-.close-btn {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    border-radius: 50%;
-    cursor: pointer;
+.modal .close-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  border-radius: 50%;
+  cursor: pointer;
 
-    border: 2px solid rgb(128, 120, 120);
-    box-shadow: 3px 3px 6px;
+  border: 2px solid rgb(128, 120, 120);
+  box-shadow: 3px 3px 6px;
 }
 
-.modal 
-div {
-    white-space: pre-wrap; 
-    word-break: break-word; 
-    max-height: 100%; 
-    display: flex;
-    justify-content: space-between;
+.modal div {
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .book-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6vh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6vh;
 }
 
-.book-info h3{
-    font-size: 1.2rem; 
-    margin: 0;
+.book-info h3 {
+  font-size: 1.2rem;
+  margin: 0;
 }
 
 .book-cover {
-    max-height: 35vh;
-    max-width: 20vw;
-    margin-right: 1.5em;
+  max-height: 35vh;
+  max-width: 20vw;
+  margin-right: 1.5em;
 }
 
 /* User Message */
 .user-msg {
-    position: fixed;
-    bottom: 70px;
-    right: 20px;
-    padding: 10px;
-    border-radius: 4px;
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  padding: 10px;
+  border-radius: 4px;
 }
 
 .user-msg.success {
-    color: #155724;
-    background-color: #c0ebca;
+  color: #155724;
+  background-color: #c0ebca;
 }
 
 .user-msg.error {
-    color: #721c24;
-    background-color: #f4bcc0;
+  color: #721c24;
+  background-color: #f4bcc0;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 /* Statistics and Filters */
 .statistic-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;  
-    gap: 150px;
-    font-size: 2.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 150px;
+  font-size: 2.5vh;
 }
 
 .on-books-message {
-    height: 20vh;
-    font-size: 3vh;
-    text-align: center;
-    vertical-align: middle;
+  height: 20vh;
+  font-size: 3vh;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .views-container {
-    display: flex;
-    align-self: center;
-    right: auto;
-    margin-inline-start: 10%;
-    margin-block-end: 10px;
+  display: flex;
+  align-self: center;
+  right: auto;
+  margin-inline-start: 10%;
+  margin-block-end: 10px;
 }
 
-.btn-table, .btn-cards{
-    display: flex;
+.btn-table,
+.btn-cards {
+  display: flex;
 }
 
 .icon {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* Cards Layout */
 .cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 20px;
-    padding-inline: 200px;
-    overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  padding-inline: 200px;
+  overflow-y: auto;
 }
 
 .book-preview {
-    position: relative;
-    background-color: beige;
-    color: black;
-    width: 300px;
-    margin: .5em;
-    border: 1px solid lightgray;
-    border-radius: .2em;
-    text-align: center;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  position: relative;
+  background-color: beige;
+  color: black;
+  width: 300px;
+  margin: 0.5em;
+  border: 1px solid lightgray;
+  border-radius: 0.2em;
+  text-align: center;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .book-preview .btn-remove {
-    float: right;
+  float: right;
 }
 
 .book-preview img {
-    max-width: 100%;
-    height: 400px;
+  max-width: 100%;
+  height: 400px;
 }
 
 .book-preview h5 {
-    font-size: 1em;
-    text-transform: capitalize;
-    text-decoration: overline;
-    margin: 0.5em 0px;
+  font-size: 1em;
+  text-transform: capitalize;
+  text-decoration: overline;
+  margin: 0.5em 0px;
 }
 
 .book-preview h6 {
-    display: flex;
-    flex-direction: column;
-    font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  font-size: 1em;
 }
 
 .book-preview h6 span {
-    color: tomato;
+  color: tomato;
 }
 
-.book-preview .close-btn{
-    position: absolute;
-    align-self: flex-end;
-    top: -8px;
-    right: -8px;
-    border-radius: 50%;
-    cursor: pointer;
+.book-preview .close-btn {
+  position: absolute;
+  align-self: flex-end;
+  top: -8px;
+  right: -8px;
+  border-radius: 50%;
+  cursor: pointer;
 
-    border: 2px solid rgb(128, 120, 120);
-    box-shadow: 3px 3px 6px;
+  border: 2px solid rgb(128, 120, 120);
+  box-shadow: 3px 3px 6px;
 }
 
 /* Add Book Form */
 .add-book-form {
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    gap: 0.5vh;
-    height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  gap: 0.5vh;
+  height: auto;
 }
 
 .form {
-    display: flex;
-    position: fixed;
-    top: 17vh;
-    left: 15vw;
-    right: auto;
-    min-width: 289px;
-    min-height: 400px;
-    padding: 1em;
-    background-color: #fcfcfc;
-    border-radius: 10px;
-    box-shadow: 3px 3px 3px #adadad;
+  display: flex;
+  position: fixed;
+  top: 17vh;
+  left: 15vw;
+  right: auto;
+  min-width: 289px;
+  min-height: 400px;
+  padding: 1em;
+  background-color: #fcfcfc;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px #adadad;
 }
 
-.form 
-.close-btn {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    border-radius: 50%;
-    cursor: pointer;
+.form .close-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  border-radius: 50%;
+  cursor: pointer;
 
-    border: 2px solid rgb(128, 120, 120);
-    box-shadow: 3px 3px 6px;
+  border: 2px solid rgb(128, 120, 120);
+  box-shadow: 3px 3px 6px;
 }
 
 /* Add Book Form Title */
 .add-book-form-title {
-    align-self: center;
+  align-self: center;
 }
 
-#submit {
-    margin-top: 2em;
-    align-self: center;
+.submit {
+  margin-top: 2em;
+  align-self: center;
 }
 
 /* Sorting Buttons */
@@ -349,45 +415,61 @@ div {
 .ascending-title-sort,
 .descending-price-sort,
 .ascending-price-sort {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* Image */
 img {
-    max-width: 100px;
+  max-width: 100px;
 }
 
-#submit,
-.add-book-btn, 
-.show-details-btn, 
-.update-btn, 
-.delete-btn, 
-.clear-btn, 
-.input-filter {
-    padding: .5em 2em;
-    border-radius: .7em;
-    cursor: pointer;
-    margin-block-end: 0.2em;
+.submit,
+.add-book-btn,
+.show-details-btn,
+.update-btn,
+.remove-btn {
+  padding: 0.5em 2em;
+  border-radius: 0.7em;
+  cursor: pointer;
+  margin-block-end: 0.2em;
 }
 
 .input-filter {
-    cursor: text;
+  cursor: text;
+  width: 200px;
+  font-size: 1rem;
+
+  height: 100%;
+  border-radius: 0.7em;
+  cursor: text;
+  padding: 0.5em 1em;
+}
+
+.clear-btn {
+  cursor: text;
+  width: auto;
+  font-size: 1rem;
+
+  height: 100%;
+  border-radius: 0.7em;
+  cursor: pointer;
+  padding: 0.5em 1em;
 }
 
 .show-details-btn {
-    background-color: sienna;
+  background-color: sienna;
 }
 
 .update-btn {
-    background-color: chocolate;
+  background-color: chocolate;
 }
 
-.delete-btn {
-    background-color: coral;
+.remove-btn {
+  background-color: coral;
 }
 
-.show-details-btn:hover, 
-.update-btn:hover, 
-.delete-btn:hover {
-    background-color: burlywood ;
+.show-details-btn:hover,
+.update-btn:hover,
+.remove-btn:hover {
+  background-color: burlywood;
 }
