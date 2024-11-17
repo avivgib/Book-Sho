@@ -171,6 +171,25 @@ th {
   color: #ffd700;
 }
 
+.filter-stars-button {
+  min-width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: beige;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px #adadad;
+  padding: 5px;
+  direction: rtl;
+}
+
+.filter-stars-button span {
+  border-radius: 5px;
+  font-size: 200%;
+  cursor: pointer;
+  align-items: center;
+}
+
 .add-book-container {
   position: fixed;
   z-index: 12;

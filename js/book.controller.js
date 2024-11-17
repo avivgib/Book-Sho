@@ -4,7 +4,7 @@ const LAYOUT_KEY = 'layuot'
 var gLayout = loadFromStorage(LAYOUT_KEY) || 'table'
 
 const gQueryOptions = {
-    filterBy: { txt: '', rating: 0 },
+    filterBy: { txt: '', rating: {value: 0, dir: 'min'} },
     sortBy: {},
     page: { idx: 0, size: 5 },
 }
@@ -248,10 +248,11 @@ function onSetFilterBy(ev, elInput) {
         gQueryOptions.filterBy.txt = elInput.value
     } else {
         const starsSelected = document.querySelectorAll('.star.selected').length
-        gQueryOptions.filterBy.rating = starsSelected
-    }
+        gQueryOptions.filterBy.rating.value = starsSelected
 
-    setFilterBy(gQueryOptions.filterBy)
+        const dirRating = document.querySelector('.filter-stars-button span').innerHTML
+        gQueryOptions.filterBy.rating.dir = dirRating
+    }
 
     //DOM
     renderBooks()
@@ -269,7 +270,9 @@ function onClearFilter(ev) {
     gBooks = loadFromStorage(STORAGE_KEY)
 
     //DOM
-    setFilterBy('')
+    gQueryOptions.filterBy.rating.value = 0
+    gQueryOptions.filterBy.rating.dir = 'min'
+    // setFilterBy('')
     renderBooks()
 }
 
@@ -312,7 +315,7 @@ function getStarsRating(rating) {
 }
 
 function onClickStarsFilter(minRating, ev, starElement) {
-    gQueryOptions.filterBy.rating = 6 - minRating
+    gQueryOptions.filterBy.rating.value = 6 - minRating
     const stars = document.querySelectorAll('.stars-filter .star')
 
     stars.forEach(star => {
@@ -328,6 +331,12 @@ function onClickStarsFilter(minRating, ev, starElement) {
     onSetFilterBy(ev ,starElement)
 }
 
+function onToggleFilterDirection() {
+    const elMinMaxStars = document.querySelector('.filter-stars-button span')
+    elMinMaxStars.innerHTML = elMinMaxStars.innerHTML === 'min' ? 'max' : 'min'
+    toggleFilterDirection()
+    renderBooks()
+} 
 
 function renderBookDetailsModal(book) {
     return `

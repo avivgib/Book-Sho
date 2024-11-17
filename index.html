@@ -26,11 +26,13 @@
             <section class="form add-book-form">
               <button onclick="handleCloseForm(event)" class="close-btn">x</button>
               <form onsubmit="handleSubmit(event)" class="add-book-form">
-                <label for="add-book-form-title" class="add-book-form-title"
-                  >Add New Book</label
-                >
+                <label for="add-book-form-title" class="add-book-form-title">
+                  Add New Book
+                </label>
+
                 <label for="title">Title:</label>
                 <input type="text" class="title" name="title" required />
+
                 <label for="price">Price:</label>
                 <input
                   type="number"
@@ -41,8 +43,10 @@
                   step=".01"
                   required
                 />
+
                 <label for="author">Author:</label>
                 <input type="text" class="author" name="author" />
+
                 <label for="pages">Print Length(pages):</label>
                 <input
                   type="number"
@@ -51,14 +55,17 @@
                   min="1"
                   max="1000"
                 />
+
                 <label for="publisher">Publisher:</label>
                 <input type="text" class="publisher" name="publisher" />
+                
                 <label for="publication-date">Publication Date:</label>
                 <input
                   type="date"
                   class="publication-date"
                   name="publication-date"
                 />
+                
                 <label for="rating">Rating:</label>
                 <input
                   type="number"
@@ -99,8 +106,10 @@
             <span class="star" data-value="3" onclick="onClickStarsFilter(3, event, this)"></span>
             <span class="star" data-value="4" onclick="onClickStarsFilter(4, event, this)"></span>
             <span class="star" data-value="5" onclick="onClickStarsFilter(5, event, this)"></span>
-          </span>
-        </div>
+          </div>
+          <div class="filter-stars-button" onclick="onToggleFilterDirection()">
+            <span>min</span>
+          </div>
         
         <!-- <input type="range" min="1" max="5" step="1" onchange="updateStars(this.value)" class="custom-slider"> -->
         <!-- <button class="min-max-stars-btn"></button> -->
