@@ -5,7 +5,7 @@ var gLayout = loadFromStorage(LAYOUT_KEY) || 'table'
 
 const gQueryOptions = {
     filterBy: { txt: '', rating: {value: 0, dir: 'min'} },
-    sortBy: {},
+    sortBy: {sortType: '', dir: 'ascending'},
     page: { idx: 0, size: 5 },
 }
 
@@ -337,6 +337,28 @@ function onToggleFilterDirection() {
     toggleFilterDirection()
     renderBooks()
 } 
+
+function onToggleSortDirection() {
+    const elSortDirection = document.querySelector('.sorting-direction-button span')
+
+    if (elSortDirection.classList.contains('descending-arrow')) {
+        elSortDirection.classList.remove('descending-arrow')
+        elSortDirection.classList.add('ascending-arrow')
+    } else {
+        elSortDirection.classList.remove('ascending-arrow')
+        elSortDirection.classList.add('descending-arrow')
+    }
+
+    toggleSortDirection()
+
+    //elSortDirection.innerHTML = elSortDirection.innerHTML === '&#x2B9F;' ? '&#x2B9D;' : '&#x2B9F;'
+    renderBooks()
+}
+
+function onChangeSort(sortOption) {
+    changeSort(sortOption)
+    renderBooks()
+}
 
 function renderBookDetailsModal(book) {
     return `

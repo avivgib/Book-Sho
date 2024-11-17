@@ -83,7 +83,7 @@ footer {
 table,
 th,
 tr {
-  border: 1px, solid;
+  border: 1px solid black;
 }
 
 th {
@@ -171,7 +171,8 @@ th {
   color: #ffd700;
 }
 
-.filter-stars-button {
+.filter-stars-button, 
+.sorting-direction-button {
   min-width: 70px;
   display: flex;
   align-items: center;
@@ -183,11 +184,20 @@ th {
   direction: rtl;
 }
 
-.filter-stars-button span {
+.filter-stars-button span,
+.sorting-direction-button span {
   border-radius: 5px;
   font-size: 200%;
   cursor: pointer;
   align-items: center;
+}
+
+.descending-arrow {
+  transform: rotate(0);
+}
+
+.ascending-arrow {
+  transform: rotate(180deg);
 }
 
 .add-book-container {
@@ -460,12 +470,11 @@ img {
 
   height: 100%;
   border-radius: 0.7em;
-  cursor: text;
   padding: 0.5em 1em;
 }
 
 .clear-btn {
-  cursor: text;
+  cursor: pointer;
   width: auto;
   font-size: 1rem;
 

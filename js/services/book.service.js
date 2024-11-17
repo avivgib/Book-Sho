@@ -12,8 +12,20 @@ function getBooks(options = {}) {
     const sortBy = options.sortBy
     const page = options.page
 
-    var books = _filterBooks(filterBy)
+    var books = _sortBooks(sortBy)
+    books = _filterBooks(filterBy)
 
+    return books
+}
+
+function _sortBooks(sortBy) {
+    var books = gBooks
+    
+    // Filter by 
+    if (sortBy.sortType === 'by-title') sortByTitle(sortBy.dir)
+    if (sortBy.sortType === 'by-price') sortByPrice(sortBy.dir)
+    if (sortBy.sortType === 'by-rating') sortByRating(sortBy.dir)
+    
     return books
 }
 
@@ -112,9 +124,9 @@ function padPrice(price) {
     return numericPrice.toFixed(2)
 }
 
-// function setFilterBy(filterBy) {
-//     gQueryOptions.filterBy = filterBy
-// }
+function setFilterByRating(filterBy) {
+    gQueryOptions.filterBy = filterBy
+}
 
 function getBookStatistics() {
     return gBooks.reduce((acc, book) => {
@@ -126,6 +138,18 @@ function getBookStatistics() {
 }
 
 // Sorting Functions
+function changeSort(sortBy) {
+    gQueryOptions.sortBy.sortType = sortBy
+}
+
+function toggleSortDirection() {
+    if (gQueryOptions.sortBy.dir === 'ascending') {
+        gQueryOptions.sortBy.dir = 'descending'
+        return
+    }
+    gQueryOptions.sortBy.dir = 'ascending'
+}
+
 function sortByTitle(order) {
     const multiplier = order === 'descending' ? -1 : 1
     gBooks = gBooks.toSorted((a, b) => a.title.localeCompare(b.title) * multiplier)

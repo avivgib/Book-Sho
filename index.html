@@ -110,14 +110,25 @@
           <div class="filter-stars-button" onclick="onToggleFilterDirection()">
             <span>min</span>
           </div>
-        
-        <!-- <input type="range" min="1" max="5" step="1" onchange="updateStars(this.value)" class="custom-slider"> -->
-        <!-- <button class="min-max-stars-btn"></button> -->
-        
-        
-        <button class="clear-btn" onclick="onClearFilter(event)">
-          Clear
-        </button>
+          
+          <!-- <input type="range" min="1" max="5" step="1" onchange="updateStars(this.value)" class="custom-slider"> -->
+          <!-- <button class="min-max-stars-btn"></button> -->
+          
+          <button class="clear-btn" onclick="onClearFilter(event)">
+            Clear
+          </button>
+          
+          <!-- sorting -->
+          <select name="sort" class="sort-select" onchange="onChangeSort(this.value)">
+            <option value="">--Please choose an sort--</option>
+            <option value="by-title">By title</option>
+            <option value="by-price">By price</option>
+            <option value="by-rating">By rating</option>
+          </select>
+
+          <div class="sorting-direction-button" onclick="onToggleSortDirection()">
+            <span class="ascending-arrow">&#x2B9F;</span>
+          </div>
 
       </section>
 
@@ -131,46 +142,28 @@
           <tr>
             <th>
               Title
-              <button
-                class="descending-title-sort hide"
-                onclick="onSortByTitle('descending')"
-              >
+              <button class="descending-title-sort hide" onclick="onSortByTitle('descending')">
                 &#x2B9F;
               </button>
-              <button
-                class="ascending-title-sort"
-                onclick="onSortByTitle('ascending')"
-              >
+              <button class="ascending-title-sort" onclick="onSortByTitle('ascending')">
                 &#x2B9D;
               </button>
             </th>
             <th>
               Price
-              <button
-                class="descending-price-sort hide"
-                onclick="onSortByPrice('descending')"
-              >
+              <button class="descending-price-sort hide" onclick="onSortByPrice('descending')" >
                 &#x2B9F;
               </button>
-              <button
-                class="ascending-price-sort"
-                onclick="onSortByPrice('ascending')"
-              >
+              <button class="ascending-price-sort" onclick="onSortByPrice('ascending')">
                 &#x2B9D;
               </button>
             </th>
             <th>
               Rating
-              <button
-                class="descending-rating-sort hide"
-                onclick="onSortByRating('descending')"
-              >
+              <button class="descending-rating-sort hide" onclick="onSortByRating('descending')">
                 &#x2B9F;
               </button>
-              <button
-                class="ascending-rating-sort"
-                onclick="onSortByRating('ascending')"
-              >
+              <button class="ascending-rating-sort" onclick="onSortByRating('ascending')">
                 &#x2B9D;
               </button>
             </th>
