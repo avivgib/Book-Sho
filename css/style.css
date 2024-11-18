@@ -6,8 +6,8 @@
 }
 
 body {
-  /* background-image: url('../img/library-bg.jpg'); */
-  background-color: #595a37;
+  background-image: url('../img/library-bg.jpg');
+  /* background-color: #595a37; */
   background-size: cover;
   display: flex;
   flex-direction: column;
