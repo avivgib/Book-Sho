@@ -265,12 +265,9 @@ function onClearFilter(ev) {
 
     // Clear stars rating
     clearRatingFilter()
-
+    clearDataFilters()
     gBooks = loadFromStorage(STORAGE_KEY)
 
-    //DOM
-    gQueryOptions.filterBy.rating.value = 0
-    gQueryOptions.filterBy.rating.dir = 'min'
     // setFilterBy('')
     renderBooks()
 }

@@ -20,27 +20,27 @@ function getBooks(options = {}) {
 
 function _sortBooks(sortBy) {
     var books = gBooks
-    
+
     // Filter by 
     if (sortBy.sortType === 'by-title') sortByTitle(sortBy.dir)
     if (sortBy.sortType === 'by-price') sortByPrice(sortBy.dir)
     if (sortBy.sortType === 'by-rating') sortByRating(sortBy.dir)
-    
+
     return books
 }
 
 function _filterBooks(filterBy) {
     var books = gBooks
-    
+
     // Filter by 
     if (filterBy.txt) books = books.filter((book) => book.title.toLowerCase().includes(filterBy.txt.toLowerCase()))
-    
+
     // Filter by rating    
     if (filterBy.rating.value) {
-        books = books.filter(book => 
-            filterBy.rating.dir === 'max' 
-            ? book.rating <= filterBy.rating.value
-            : book.rating >= filterBy.rating.value)
+        books = books.filter(book =>
+            filterBy.rating.dir === 'max'
+                ? book.rating <= filterBy.rating.value
+                : book.rating >= filterBy.rating.value)
     }
     return books
 }
@@ -128,6 +128,13 @@ function setFilterByRating(filterBy) {
     gQueryOptions.filterBy = filterBy
 }
 
+function clearDataFilters() {
+    gQueryOptions.filterBy.txt = ''
+    gQueryOptions.filterBy.rating.value = 0
+    gQueryOptions.filterBy.rating.dir = 'min'
+}
+
+
 function getBookStatistics() {
     return gBooks.reduce((acc, book) => {
         if (book.price > 120) acc.expensive++
@@ -167,7 +174,7 @@ function sortByRating(order) {
 
 // Filtering Functions
 function toggleFilterDirection() {
-    if(gQueryOptions.filterBy.rating.dir === 'min') {
+    if (gQueryOptions.filterBy.rating.dir === 'min') {
         gQueryOptions.filterBy.rating.dir = 'max'
         return
     }
