@@ -74,7 +74,7 @@ function renderBooksCards(books) {
 
     const strHTMLs = books.map(book =>
         `<div class="book-preview">                
-        <!-- <button class="close-btn" onclick="onRemoveBook(event, '${book.id}')">x</button> -->
+        <button class="close-btn" onclick="onRemoveBook(event, '${book.id}')">x</button>
                 <h5>${book.title}</h5>
                 <img src="img/${book.imgUrl}">
                 <h6> 
@@ -83,7 +83,6 @@ function renderBooksCards(books) {
                 </h6>
                 <button class="show-details-btn" onclick="handleOpenModal(event, '${book.id}')">Details</button>
                 <button class="update-btn" onclick="onUpdateBook(event, '${book.id}')">Update</button>
-                <button class="remove-btn" onclick="onRemoveBook(event, '${book.id}')">Remove</button> 
             </div>
             `)
 
