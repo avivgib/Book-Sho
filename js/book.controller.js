@@ -6,7 +6,7 @@ var gLayout = loadFromStorage(LAYOUT_KEY) || 'table'
 const gQueryOptions = {
     filterBy: { txt: '', rating: {value: 0, dir: 'min'} },
     sortBy: {sortType: '', dir: 'ascending'},
-    page: { idx: 0, size: 5 },
+    page: { idx: 0, size: 4 },
 }
 
 // Initialization and Render
@@ -118,6 +118,18 @@ function formatCountText(count, type) {
 // Book Actions
 function onAddBook(ev) {
     handleOpenForm(ev, 'add')
+}
+
+function onChangePage(diff) {
+    const pageCount = getPageCount(gQueryOptions)
+    var newPageIdx = gQueryOptions.page.idx + diff
+
+    if (newPageIdx >= pageCount) newPageIdx = 0
+    if (newPageIdx < 0) newPageIdx = pageCount - 1
+
+    gQueryOptions.page.idx = newPageIdx
+    document.querySelector('.page-count').innerText = newPageIdx + 1
+    renderBooks()
 }
 
 function onRemoveBook(ev, bookId) {

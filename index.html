@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material" />
+    <link rel="icon" type="image/png" href="img/book-icon.png">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
   </head>
 
@@ -132,7 +133,7 @@
       </section>
     </div>
         </div>
-      
+
         <div class="views-container">
           <button class="btn-table" onclick="onChangeLayout('table')">
             <span class="material-icons icon">format_list_bulleted</span>
@@ -191,6 +192,12 @@
       </table>
 
       <div class="cards-container"></div>
+      
+      <section class="pagination-container">
+        <button class="prev-page-btn" onclick="onChangePage(-1)">&#x2B9C;</button>
+        <article class="page-count">1</article>
+        <button class="next-page-btn" onclick="onChangePage(1)">&#x2B9E;</button>
+      </section>
     </div>
   </div>
 

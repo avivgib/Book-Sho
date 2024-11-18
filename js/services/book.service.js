@@ -15,6 +15,10 @@ function getBooks(options = {}) {
     var books = _sortBooks(sortBy)
     books = _filterBooks(filterBy)
 
+    const startIdx = page.idx * page.size
+    const endIdx = startIdx + page.size
+    books = books.slice(startIdx, endIdx)
+    
     return books
 }
 
@@ -51,6 +55,16 @@ function addBook(title, price, author, printLength, publisher, publicationDate, 
 
     _saveBooks()
     showSuccessMsg('added')
+}
+
+function getPageCount(options) {
+    const filterBy = options.filterBy
+    const page = options.page
+
+    const booksSum = _filterBooks(filterBy).length
+    const pageCount = Math.ceil(booksSum / page.size)
+    
+    return pageCount
 }
 
 function removeBook(bookId) {
@@ -109,7 +123,7 @@ function _createBook(title, price, author, printLength, publisher, publicationDa
         publisher: publisher || '',
         publicationDate: publicationDate || '',
         rating: rating || '',
-        imgUrl: imgUrl || ''
+        imgUrl: imgUrl || '../img/no-image-available.jpg'
     }
 }
 
