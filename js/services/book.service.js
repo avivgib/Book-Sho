@@ -1,82 +1,35 @@
 'use strict'
 
 const STORAGE_KEY = 'books_db'
+
+// Global Variables
 var gFilterBy = ''
 var gBooks = []
 _createBooks()
 
-
 //Main Functions
 function getBooks(options = {}) {
-    const filterBy = options.filterBy
-    const sortBy = options.sortBy
-    const page = options.page
+    const {filterBy, sortBy, page} = options
 
     var books = _sortBooks(sortBy)
     books = _filterBooks(filterBy)
 
     const startIdx = page.idx * page.size
     const endIdx = startIdx + page.size
-    books = books.slice(startIdx, endIdx)
-    
-    return books
-}
-
-function _sortBooks(sortBy) {
-    var books = gBooks
-
-    // Filter by 
-    if (sortBy.sortType === 'by-title') sortByTitle(sortBy.dir)
-    if (sortBy.sortType === 'by-price') sortByPrice(sortBy.dir)
-    if (sortBy.sortType === 'by-rating') sortByRating(sortBy.dir)
-
-    return books
-}
-
-function _filterBooks(filterBy) {
-    var books = gBooks
-
-    // Filter by 
-    if (filterBy.txt) books = books.filter((book) => book.title.toLowerCase().includes(filterBy.txt.toLowerCase()))
-
-    // Filter by rating    
-    if (filterBy.rating.value) {
-        books = books.filter(book =>
-            filterBy.rating.dir === 'max'
-                ? book.rating <= filterBy.rating.value
-                : book.rating >= filterBy.rating.value)
-    }
-    return books
+    return books.slice(startIdx, endIdx)
 }
 
 function addBook(title, price, author, printLength, publisher, publicationDate, rating) {
     const newBook = _createBook(title, price, author, printLength, publisher, publicationDate, rating)
     gBooks.push(newBook)
-
     _saveBooks()
     showSuccessMsg('added')
 }
 
-function getPageCount(options) {
-    const filterBy = options.filterBy
-    const page = options.page
-
-    const booksSum = _filterBooks(filterBy).length
-    const pageCount = Math.ceil(booksSum / page.size)
-    
-    return pageCount
-}
-
-function removeBook(bookId) {
-    const bookIdx = gBooks.findIndex(book => book.id === bookId)
-    if (bookIdx !== -1) gBooks.splice(bookIdx, 1)
-
-    _saveBooks()
-    showSuccessMsg('removed')
-}
-
 function updateBook(bookId, title, price, author, printLength, publisher, publicationDate, rating) {
     const book = findBook(bookId)
+    if (!book) return
+
     book.title = title
     book.price = price
     book.author = author
@@ -89,7 +42,57 @@ function updateBook(bookId, title, price, author, printLength, publisher, public
     showSuccessMsg('updated')
 }
 
-// // Book Creation and Storage
+function removeBook(bookId) {
+    const bookIdx = gBooks.findIndex(book => book.id === bookId)
+    if (bookIdx === -1) return
+    
+    gBooks.splice(bookIdx, 1)
+    _saveBooks()
+    showSuccessMsg('removed')
+}
+
+function getPageCount(options) {
+    const {filterBy, page} = options
+
+    const booksSum = _filterBooks(filterBy).length
+    return Math.ceil(booksSum / page.size)
+}
+
+
+
+function _sortBooks(sortBy) {
+    if (!sortBy) return gBooks
+
+    const {sortType, dir} = sortBy
+    const multiplier = dir === 'descending' ? -1 : 1
+
+    if (sortType === 'by-title') gBooks = gBooks.toSorted((a, b) => a.title.localeCompare(b.title) * multiplier)
+    else if (sortType === 'by-price') gBooks = gBooks.toSorted((a, b) => (a.price - b.price) * multiplier)
+    else if (sortType === 'by-rating') gBooks = gBooks.toSorted((a, b) => (a.rating - b.rating) * multiplier)
+
+    return gBooks
+}
+
+function _filterBooks(filterBy) {
+    if (!filterBy) return gBooks
+    
+    const {txt, rating} = filterBy
+    var books = gBooks
+
+    // Filter by 
+    if (txt) books = books.filter((book) => book.title.toLowerCase().includes(txt.toLowerCase()))
+
+    // Filter by rating    
+    if (rating.value) {
+        books = books.filter(book =>
+            rating.dir === 'max'
+                ? book.rating <= rating.value
+                : book.rating >= rating.value)
+    }
+    return books
+}
+
+// Book Creation and Storage
 function _createBooks() {
     gBooks = loadFromStorage(STORAGE_KEY)
     if (gBooks && gBooks.length > 0) return
@@ -117,12 +120,12 @@ function _createBook(title, price, author, printLength, publisher, publicationDa
     return {
         id: makeId(),
         title,
-        price: padPrice(price),
+        price: parseFloat(price).toFixed(2),
         author: author || '',
         printLength: printLength || '',
         publisher: publisher || '',
         publicationDate: publicationDate || '',
-        rating: rating || '',
+        rating: rating || 0,
         imgUrl: imgUrl || '../img/no-image-available.jpg'
     }
 }
@@ -132,22 +135,9 @@ function _saveBooks() {
 }
 
 // Utility Functions
-function padPrice(price) {
-    const numericPrice = parseFloat(price)
-    if (isNaN(numericPrice)) return price
-    return numericPrice.toFixed(2)
-}
-
 function setFilterByRating(filterBy) {
     gQueryOptions.filterBy = filterBy
 }
-
-function clearDataFilters() {
-    gQueryOptions.filterBy.txt = ''
-    gQueryOptions.filterBy.rating.value = 0
-    gQueryOptions.filterBy.rating.dir = 'min'
-}
-
 
 function getBookStatistics() {
     return gBooks.reduce((acc, book) => {
@@ -158,7 +148,12 @@ function getBookStatistics() {
     }, { cheap: 0, average: 0, expensive: 0 })
 }
 
-// Sorting Functions
+function clearDataFilters() {
+    gQueryOptions.filterBy.txt = ''
+    gQueryOptions.filterBy.rating.value = 0
+    gQueryOptions.filterBy.rating.dir = 'min'
+}
+
 function changeSort(sortBy) {
     gQueryOptions.sortBy.sortType = sortBy
 }
@@ -171,22 +166,6 @@ function toggleSortDirection() {
     gQueryOptions.sortBy.dir = 'ascending'
 }
 
-function sortByTitle(order) {
-    const multiplier = order === 'descending' ? -1 : 1
-    gBooks = gBooks.toSorted((a, b) => a.title.localeCompare(b.title) * multiplier)
-}
-
-function sortByPrice(order) {
-    const multiplier = order === 'descending' ? -1 : 1
-    gBooks = gBooks.toSorted((a, b) => (a.price - b.price) * multiplier)
-}
-
-function sortByRating(order) {
-    const multiplier = order === 'descending' ? -1 : 1
-    gBooks = gBooks.toSorted((a, b) => (a.rating - b.rating) * multiplier)
-}
-
-// Filtering Functions
 function toggleFilterDirection() {
     if (gQueryOptions.filterBy.rating.dir === 'min') {
         gQueryOptions.filterBy.rating.dir = 'max'
